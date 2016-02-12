@@ -42,8 +42,21 @@ namespace GPOneButton
         }
         private AttackDir currentAttackDir;
 
-        enum States { Stationary, Attacking, Returning, Stopped };
-        States CurrentState;
+        enum BladeState { Stationary, Attacking, Returning, Stopped };
+        public BladeState CurrentState
+        {
+            get
+            {
+                return currentState;
+            }
+
+            set
+            {
+                if(currentState != value)
+                    currentState = OnStateChange(value);
+            }
+        }
+        private BladeState currentState;
 
         int StoppedCounter, StoppedCounterMax;
 
@@ -76,16 +89,9 @@ namespace GPOneButton
             StoppedCounterMax = 30;
 
             StationaryPos = Pos;
-            CurrentState = States.Stationary;
+            CurrentState = BladeState.Stationary;
 
-            HitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale)),
-                 (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
-                 (int)(this.spriteTexture.Height * this.Scale));
-
-            SmallHitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16),
-                    (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16), 10, 10);
-
-            StationaryPosHitBox = new Rectangle((int)(this.StationaryPos.X - 5 ), (int)(this.StationaryPos.Y - 5), 10, 10);
+            SetHitBoxes();
         }
 
         public override void Update(GameTime gameTime)
@@ -98,41 +104,43 @@ namespace GPOneButton
         {
             if (CheckForLink())
             {
-                this.Attack();
+                this.Dir = DetermineAttackDir();
                 AttackSound.Play(.7f,0,0);
             }
 
             if (this.Dir.Length() > 0)
             {
-                if(this.CurrentState == States.Attacking)
+                if(this.CurrentState == BladeState.Attacking)
                     this.Pos += ((Vector2.Normalize(Dir) * (lastUpdateTime / 1000)) * this.Speed);
-                if(this.CurrentState == States.Returning)
+
+                if(this.CurrentState == BladeState.Returning)
                     this.Pos += ((Vector2.Normalize(Dir) * (lastUpdateTime / 1000)) * this.ReturnSpeed);
+
                 this.UpdateHitBoxes();
             }
 
             switch(this.CurrentState)
             {
-                case States.Attacking:
-                    if (this.CheckForAttackBoxEdge())
+                case BladeState.Attacking:
+                    if (this.ReachedEdgeOfAttackBox())
                     {
-                        this.CurrentState = States.Stopped;
+                        this.CurrentState = BladeState.Stopped;
                         StopSound.Play();
                         this.Dir = new Vector2(0, 0);
                     }
                     break;
 
-                case States.Stopped:
+                case BladeState.Stopped:
                     StoppedCounter++;
 
                     if (StoppedCounter == StoppedCounterMax)
                     {
-                        this.CurrentState = States.Returning;
+                        this.CurrentState = BladeState.Returning;
                         StoppedCounter = 0;
                     }
                     break;
 
-                case States.Returning:
+                case BladeState.Returning:
                     this.Dir = GetReturnDirection();
 
                     if (this.SmallHitBox.Intersects(this.StationaryPosHitBox))
@@ -147,14 +155,14 @@ namespace GPOneButton
                     break;
             }
 
-            if (this.CurrentState == States.Returning && this.Pos == this.StationaryPos)
+            if (this.CurrentState == BladeState.Returning && this.Pos == this.StationaryPos)
             {
                 StoppedCounter++;
 
                 if(StoppedCounter == 15)
                 {
                     StoppedCounter = 0;
-                    this.CurrentState = States.Stationary;
+                    this.CurrentState = BladeState.Stationary;
                 }
             }
 
@@ -189,31 +197,18 @@ namespace GPOneButton
 
         private bool CheckForLink()
         {
+            int i = -1;
             foreach (Rectangle r in this.AttackBoxes)
             {
-                if (this.link.HitBox.Intersects(r) && this.CurrentState == States.Stationary)
+                i++;
+                if (this.link.HitBox.Intersects(r) && this.CurrentState == BladeState.Stationary)
                 {
-                    this.CurrentState = States.Attacking;
-                    this.AttackAxis = r;
+                    this.CurrentState = BladeState.Attacking;
+                    DetermineAttackDir(i);
                     return true;
                 }
             }
             return false;
-        }
-
-        private void Attack()
-        {
-            if (this.AttackAxis == this.AttackBoxes[0])
-                this.Dir = new Vector2(0, -1);
-
-            else if (this.AttackAxis == this.AttackBoxes[1])
-                this.Dir = new Vector2(1, 0);
-
-            else if (this.AttackAxis == this.AttackBoxes[2])
-                this.Dir = new Vector2(0, 1);
-
-            else if (this.AttackAxis == this.AttackBoxes[3])
-                this.Dir = new Vector2(-1, 0);
         }
 
         private bool CheckLinkHit()
@@ -228,30 +223,26 @@ namespace GPOneButton
                 return false;              
         }
 
-        private bool CheckForAttackBoxEdge()
+        private bool ReachedEdgeOfAttackBox()
         {
-            if (this.AttackAxis == this.AttackBoxes[0])
+            switch(currentAttackDir)
             {
-                if (this.Pos.Y <= this.AttackAxis.Top)
-                    return true;
-            }
+                case BladeTrap.AttackDir.Up:
+                    if (this.Pos.Y <= AttackBoxes[0].Top) return true;
+                    break;
 
-            if (this.AttackAxis == this.AttackBoxes[1])
-            {
-                if (this.Pos.X >= this.AttackAxis.Right)
-                    return true;
-            }
+                case BladeTrap.AttackDir.Down:
+                    if (this.Pos.Y >= AttackBoxes[2].Bottom) return true;
+                    break;
 
-            if (this.AttackAxis == this.AttackBoxes[2])
-            {
-                if (this.Pos.Y >= this.AttackAxis.Bottom)
-                    return true;
-            }
+                case BladeTrap.AttackDir.Left:
+                    if (this.Pos.X <= AttackBoxes[3].Left) return true;
+                    break;
 
-            if (this.AttackAxis == this.AttackBoxes[3])
-            {
-                if (this.Pos.X <= this.AttackAxis.Left)
-                    return true;
+                case BladeTrap.AttackDir.Right:
+                    if (this.Pos.X >= AttackBoxes[1].Right) return true;
+                    break;
+
             }
 
             return false;
@@ -303,9 +294,50 @@ namespace GPOneButton
             return dirVect;
         }
 
-        public States OnStateChange(BladeTrap.States)
+        //TODO: Implement innards of this OnStateChange function
+        public BladeState OnStateChange(BladeTrap.BladeState state)
         {
+            switch(state)
+            {
+                case BladeTrap.BladeState.Attacking:
+                    break;
 
+                case BladeTrap.BladeState.Returning:
+                    break;
+
+                case BladeTrap.BladeState.Stationary:
+                    break;
+
+                case BladeTrap.BladeState.Stopped:
+                    break;
+            }
+
+            return state;
+        }
+
+        private void SetHitBoxes()
+        {
+            HitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale)),
+                (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
+                (int)(this.spriteTexture.Height * this.Scale));
+
+            SmallHitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16),
+                (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16), 10, 10);
+
+            StationaryPosHitBox = new Rectangle((int)(this.StationaryPos.X - 5), (int)(this.StationaryPos.Y - 5), 10, 10);
+        }
+
+        private AttackDir DetermineAttackDir(int elementInAttackBoxes)
+        {
+            switch(elementInAttackBoxes)
+            {
+                case 0: return AttackDir.Up;
+                case 1: return AttackDir.Right;
+                case 2: return AttackDir.Down;
+                case 3: return AttackDir.Left;
+
+                default: return AttackDir.Up;
+            }
         }
 
     }

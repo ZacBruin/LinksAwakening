@@ -148,3 +148,6 @@ C:\Users\zachary.bruin\Desktop\GitHub\One-Button-Game\GPOneButton\bin\Windows\De
 C:\Users\zachary.bruin\Desktop\GitHub\One-Button-Game\GPOneButton\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\zachary.bruin\Desktop\GitHub\One-Button-Game\GPOneButton\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\zachary.bruin\Desktop\GitHub\One-Button-Game\GPOneButton\obj\x86\Debug\GPOneButton.csprojResolveAssemblyReference.cache
+Z:\pub\One-Button-Game\GPOneButton\obj\x86\Debug\GPOneButton.exe
+Z:\pub\One-Button-Game\GPOneButton\obj\x86\Debug\GPOneButton.pdb
+Z:\pub\One-Button-Game\GPOneButton\obj\x86\Debug\GPOneButton.csprojResolveAssemblyReference.cache
