@@ -301,7 +301,7 @@ namespace GPOneButton
         {
             foreach (Heart h in this.Health)
             {
-                h.UpdateHeart();
+                h.UpdateHeartSprite();
             }
         }
 
