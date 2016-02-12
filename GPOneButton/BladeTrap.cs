@@ -23,6 +23,25 @@ namespace GPOneButton
 
         public float AttackBoxGirth, ReturnSpeed, AttackBoxOffSet;
 
+        enum AttackDir { Up, Down, Left, Right}
+        public AttackDir CurrentAttackDir
+        {
+            get
+            {
+                return currentAttackDir;
+            }
+
+            set
+            {
+                if (currentAttackDir != value)
+                {
+                    this.Dir = DetermineAttackDir();
+                    currentAttackDir = value;
+                }
+            }
+        }
+        private AttackDir currentAttackDir;
+
         enum States { Stationary, Attacking, Returning, Stopped };
         States CurrentState;
 
@@ -30,7 +49,6 @@ namespace GPOneButton
 
         public BladeTrap(Game1 game, int x, int y, Link link) : base (game)
         {
-
             this.Pos.X = (float)(x * 40) + 20;
             this.Pos.Y = (float)(y * 40) + 20;
             this.link = link;
@@ -115,7 +133,7 @@ namespace GPOneButton
                     break;
 
                 case States.Returning:
-                    this.ReturnToStationaryPos();
+                    this.Dir = GetReturnDirection();
 
                     if (this.SmallHitBox.Intersects(this.StationaryPosHitBox))
                         this.ReturnSpeed = 25f;
@@ -185,34 +203,17 @@ namespace GPOneButton
 
         private void Attack()
         {
-            Rectangle NoAttack = new Rectangle (0,0,0,0);
-
-            if (this.AttackAxis == NoAttack)
-                return;
-
             if (this.AttackAxis == this.AttackBoxes[0])
-            {
                 this.Dir = new Vector2(0, -1);
-                return;
-            }
 
-            if (this.AttackAxis == this.AttackBoxes[1])
-            {
+            else if (this.AttackAxis == this.AttackBoxes[1])
                 this.Dir = new Vector2(1, 0);
-                return;
-            }
 
-            if (this.AttackAxis == this.AttackBoxes[2])
-            {
+            else if (this.AttackAxis == this.AttackBoxes[2])
                 this.Dir = new Vector2(0, 1);
-                return;
-            }
 
-            if (this.AttackAxis == this.AttackBoxes[3])
-            {
+            else if (this.AttackAxis == this.AttackBoxes[3])
                 this.Dir = new Vector2(-1, 0);
-                return;
-            }
         }
 
         private bool CheckLinkHit()
@@ -256,31 +257,9 @@ namespace GPOneButton
             return false;
         }
 
-        private void ReturnToStationaryPos()
+        private Vector2 GetReturnDirection()
         {
-            if (this.AttackAxis == this.AttackBoxes[0])
-            {
-                this.Dir = new Vector2(0, 1);
-                return;
-            }
-
-            if (this.AttackAxis == this.AttackBoxes[1])
-            {
-                this.Dir = new Vector2(-1, 0);
-                return;
-            }
-
-            if (this.AttackAxis == this.AttackBoxes[2])
-            {
-                this.Dir = new Vector2(0, -1);
-                return;
-            }
-
-            if (this.AttackAxis == this.AttackBoxes[3])
-            {
-                this.Dir = new Vector2(1, 0);
-                return;
-            }
+            return this.Dir * -1;
         }
 
         private bool CheckIfReturned()
@@ -299,5 +278,35 @@ namespace GPOneButton
         {
             return this.spriteTexture;
         }
+
+        public Vector2 DetermineAttackDir()
+        {
+            Vector2 dirVect = Vector2.Zero;
+            switch(currentAttackDir)
+            {
+                case BladeTrap.AttackDir.Up:
+                    dirVect = new Vector2(0, -1);
+                    break;
+
+                case BladeTrap.AttackDir.Down:
+                    dirVect = new Vector2(0, 1);
+                    break;
+
+                case BladeTrap.AttackDir.Left:
+                    dirVect = new Vector2(-1, 0);
+                    break;
+
+                case BladeTrap.AttackDir.Right:
+                    dirVect = new Vector2(1, 0);
+                    break;
+            }
+            return dirVect;
+        }
+
+        public States OnStateChange(BladeTrap.States)
+        {
+
+        }
+
     }
 }

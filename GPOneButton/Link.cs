@@ -267,7 +267,7 @@ namespace GPOneButton
 
         public void AddHeart(Heart h)
         {
-                this.Health.Add(h);         
+            this.Health.Add(h);         
         }
 
         public void TakeDamage()
