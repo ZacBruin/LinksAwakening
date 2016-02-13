@@ -10,7 +10,7 @@ namespace GPOneButton
 {
     class Sprite : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        public Vector2 Pos, Dir;
+        public Vector2 Position, moveDirection;
         public float Speed, Rotate, Scale;
         public SpriteEffects SpriteEffects;
 
@@ -50,7 +50,7 @@ namespace GPOneButton
         {
             spriteBatch.Begin();           
             
-            spriteBatch.Draw(spriteTexture, new Vector2(Pos.X, Pos.Y),
+            spriteBatch.Draw(spriteTexture, new Vector2(Position.X, Position.Y),
                 null, color, Rotate, new Vector2(spriteTexture.Width / 2, spriteTexture.Height / 2), Scale, SpriteEffects, 0);
 
             spriteBatch.End();

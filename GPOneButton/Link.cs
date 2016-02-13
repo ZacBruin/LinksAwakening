@@ -56,9 +56,9 @@ namespace GPOneButton
 
             spriteTexture = spriteArray[0];
 
-            Dir = new Vector2(1, 0);
+            moveDirection = new Vector2(1, 0);
             GameStartPos = new Vector2(300, 220);
-            Pos = GameStartPos;
+            Position = GameStartPos;
 
             color = Color.White;     
             
@@ -74,8 +74,8 @@ namespace GPOneButton
 
             HBThoriz = 12; HBTvert = 6;
 
-            HitBox = new Rectangle(((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2)),
-                    ((int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale) + HBTvert*2)),
+            HitBox = new Rectangle(((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2)),
+                    ((int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale) + HBTvert*2)),
                     ((int)(this.spriteTexture.Width * this.Scale) - HBThoriz), (int)(this.spriteTexture.Height * this.Scale) - HBTvert*2);
         }
 
@@ -98,8 +98,8 @@ namespace GPOneButton
 
         public void UpdateHitBox()
         {
-            this.HitBox.X = ((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2));
-            this.HitBox.Y = (int)(this.Pos.Y - ((this.spriteTexture.Height / 2) * this.Scale) + HBTvert * 2);
+            this.HitBox.X = ((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2));
+            this.HitBox.Y = (int)(this.Position.Y - ((this.spriteTexture.Height / 2) * this.Scale) + HBTvert * 2);
         }
 
         private void CycleWalkAnimation(int a, int b)
@@ -120,20 +120,20 @@ namespace GPOneButton
 
                 if (intersectCheck.Height > intersectCheck.Width)
                 {
-                    if (intersectCheck.Left < this.HitBox.Right && this.Pos.X > intersectCheck.Left)
-                        this.Pos.X = r.Right + ((int)this.HitBox.Width / 2);
+                    if (intersectCheck.Left < this.HitBox.Right && this.Position.X > intersectCheck.Left)
+                        this.Position.X = r.Right + ((int)this.HitBox.Width / 2);
 
-                    if (intersectCheck.Right > this.HitBox.Left && this.Pos.X < intersectCheck.Right)
-                        this.Pos.X = r.Left - ((int)this.HitBox.Width / 2);
+                    if (intersectCheck.Right > this.HitBox.Left && this.Position.X < intersectCheck.Right)
+                        this.Position.X = r.Left - ((int)this.HitBox.Width / 2);
                 }
 
                 else
                 {
-                    if (intersectCheck.Top < this.HitBox.Bottom && this.Pos.Y > intersectCheck.Bottom)
-                        this.Pos.Y = (r.Bottom + ((int)this.HitBox.Height / 2) - 5);
+                    if (intersectCheck.Top < this.HitBox.Bottom && this.Position.Y > intersectCheck.Bottom)
+                        this.Position.Y = (r.Bottom + ((int)this.HitBox.Height / 2) - 5);
 
-                    if (intersectCheck.Bottom > this.HitBox.Top && this.Pos.Y < intersectCheck.Top)
-                        this.Pos.Y = r.Top - (int)this.GetSpriteTextureHeight() / 2;
+                    if (intersectCheck.Bottom > this.HitBox.Top && this.Position.Y < intersectCheck.Top)
+                        this.Position.Y = r.Top - (int)this.GetSpriteTextureHeight() / 2;
                 }
             }
         }
@@ -256,7 +256,7 @@ namespace GPOneButton
 
                 if (LinkDir.Length() > 0)
                 {
-                    this.Pos += ((Vector2.Normalize(LinkDir) * (lastUpdateTime / 1000)) * this.Speed);
+                    this.Position += ((Vector2.Normalize(LinkDir) * (lastUpdateTime / 1000)) * this.Speed);
                     this.UpdateHitBox();
                 }
             }

@@ -209,13 +209,13 @@ namespace GPOneButton
 //////////////////////////////////////////////////////////////////////////////////
 
             //Moving slowly up stairs
-            if (lonk.room == room1 && lonk.Pos.X > 200 && lonk.Pos.X < 240 && lonk.Pos.Y > 80 && lonk.Pos.Y < 120)
+            if (lonk.room == room1 && lonk.Position.X > 200 && lonk.Position.X < 240 && lonk.Position.Y > 80 && lonk.Position.Y < 120)
                 lonk.Speed = 75f;
             else
                 lonk.Speed = 150f;
 
             //Grabbing the Key
-            if(lonk.room == room3 && lonk.Pos.X > 115 && lonk.Pos.X < 160 && lonk.Pos.Y < 90)
+            if(lonk.room == room3 && lonk.Position.X > 115 && lonk.Position.X < 160 && lonk.Position.Y < 90)
             {
                 lonk.HasKey = true;
                 if (!Key.IsDisposed)
@@ -238,7 +238,7 @@ namespace GPOneButton
             }
 
             //Link opening the chest
-            if (lonk.room == room5 && lonk.Pos.X > 160 && lonk.Pos.X < 240 && lonk.Pos.Y < 120)
+            if (lonk.room == room5 && lonk.Position.X > 160 && lonk.Position.X < 240 && lonk.Position.Y < 120)
             {
                 if (!lonk.PlayerHasBeatenGame)
                 {
@@ -274,29 +274,29 @@ namespace GPOneButton
                 //////////////////////////////////////////////////////////////////////////////////
 
                 if (lonk.room == room1 && lonk.HitBox.Right >= this.GraphicsDevice.Viewport.Bounds.Right)
-                    this.ChangeRooms(room1, room2, 15, lonk.Pos.Y);
+                    this.ChangeRooms(room1, room2, 15, lonk.Position.Y);
 
                 if (lonk.room == room2 && lonk.HitBox.Left <= this.GraphicsDevice.Viewport.Bounds.Left)
-                    this.ChangeRooms(room2, room1, 385, lonk.Pos.Y);
+                    this.ChangeRooms(room2, room1, 385, lonk.Position.Y);
 
                 if (lonk.room == room2 && lonk.HitBox.Right >= this.GraphicsDevice.Viewport.Bounds.Right)
-                    this.ChangeRooms(room2, room3, 15, lonk.Pos.Y);
+                    this.ChangeRooms(room2, room3, 15, lonk.Position.Y);
 
                 if (lonk.room == room3 && lonk.HitBox.Left <= this.GraphicsDevice.Viewport.Bounds.Left)
-                    this.ChangeRooms(room3, room2, 385, lonk.Pos.Y);
+                    this.ChangeRooms(room3, room2, 385, lonk.Position.Y);
 
                 if (lonk.room == room3 && lonk.HitBox.Bottom >= this.GraphicsDevice.Viewport.Bounds.Bottom - 20)
                 {
-                    this.ChangeRooms(room3, room4, lonk.Pos.X, 20);
+                    this.ChangeRooms(room3, room4, lonk.Position.X, 20);
 
                     TorchAnimationCounter = 0;
                 }
 
                 if (lonk.room == room4 && lonk.HitBox.Top <= this.GraphicsDevice.Viewport.Bounds.Top)
-                    this.ChangeRooms(room4, room3, lonk.Pos.X, 300);
+                    this.ChangeRooms(room4, room3, lonk.Position.X, 300);
 
 
-                if (lonk.room == room3 && lonk.Pos.X > 280 && lonk.Pos.Y < 120)
+                if (lonk.room == room3 && lonk.Position.X > 280 && lonk.Position.Y < 120)
                 {
                     this.ChangeRooms(room3, room5, 180, 260);
 
@@ -329,7 +329,7 @@ namespace GPOneButton
                 spriteBatch.Draw(Chest, new Vector2(180, 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
             if (lonk.PlayerHasBeatenGame)
-                spriteBatch.Draw(Treasure, new Vector2(lonk.Pos.X - 20, lonk.Pos.Y - 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
+                spriteBatch.Draw(Treasure, new Vector2(lonk.Position.X - 20, lonk.Position.Y - 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
                 foreach (Heart h in lonk.Health)
                 {
@@ -378,8 +378,8 @@ namespace GPOneButton
             lonk.room = GoingTo;
             GoingTo.SetOnScreen(true);
 
-            lonk.Pos.X = X;
-            lonk.Pos.Y = Y;
+            lonk.Position.X = X;
+            lonk.Position.Y = Y;
 
             lonk.UpdateHitBox();
             this.UnloadContent();
@@ -394,7 +394,7 @@ namespace GPOneButton
 
             else
             {
-                lonk.Pos = lonk.GameStartPos;
+                lonk.Position = lonk.GameStartPos;
                 lonk.UpdateHitBox();
                 this.Components.Remove(B);
 

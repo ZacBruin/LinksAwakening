@@ -302,7 +302,7 @@ namespace GPOneButton
 
                 foreach (BladeTrap b in this.RoomEnemies)
                 {
-                    spriteBatch.Draw(b.GetSpriteTexture(), b.Pos,
+                    spriteBatch.Draw(b.GetSpriteTexture(), b.Position,
                         null, Color.White, 0.0f, new Vector2(0, 0), b.Scale, SpriteEffects.None, 0);
                 }
 
@@ -349,8 +349,8 @@ namespace GPOneButton
 
         private void UpdateCol(StationarySprite s)
         {
-            s.Col = new Rectangle((int)(s.Pos.X - ((s.GetSpriteTextureWidth() / 2) * s.Scale)),
-                (int)((s.Pos.Y - (s.GetSpriteTextureHeight() / 2) * s.Scale)), (int)(s.GetSpriteTextureWidth() * s.Scale),
+            s.Col = new Rectangle((int)(s.Position.X - ((s.GetSpriteTextureWidth() / 2) * s.Scale)),
+                (int)((s.Position.Y - (s.GetSpriteTextureHeight() / 2) * s.Scale)), (int)(s.GetSpriteTextureWidth() * s.Scale),
                 (int)(s.GetSpriteTextureHeight() * s.Scale));
         }
 

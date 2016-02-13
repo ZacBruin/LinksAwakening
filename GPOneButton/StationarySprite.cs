@@ -78,16 +78,16 @@ namespace GPOneButton
 
          public Vector2 SetPos(Vector2 v)
          {
-             this.Pos.X = v.X;
-             this.Pos.Y = v.Y;
+             this.Position.X = v.X;
+             this.Position.Y = v.Y;
 
-             return this.Pos;
+             return this.Position;
          }
 
          public void UpdateCol()
         {
-             this.Col = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale)),
-                 (int)((this.Pos.Y - (this.spriteTexture.Height /2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
+             this.Col = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale)),
+                 (int)((this.Position.Y - (this.spriteTexture.Height /2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
                  (int)(this.spriteTexture.Height * this.Scale));
         }
 

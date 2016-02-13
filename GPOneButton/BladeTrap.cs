@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
-
 
 namespace GPOneButton
 {
     class BladeTrap : Sprite
     {
         public Rectangle[] AttackBoxes;
-        public Rectangle HitBox, AttackAxis, SmallHitBox, StationaryPosHitBox;
+        public Rectangle HitBox, SmallHitBox, StationaryPosHitBox;
 
         public Link link;
 
         SoundEffect AttackSound, StopSound;
 
-        public Vector2 StationaryPos;
+        Vector2 OriginPosition;
 
-        public float AttackBoxGirth, ReturnSpeed, AttackBoxOffSet;
+        float AttackBoxGirth, ReturnSpeed, AttackBoxOffSet;
+        int StoppedCounter, StoppedCounterMax;
 
         enum AttackDir { Up, Down, Left, Right}
-        public AttackDir CurrentAttackDir
+        AttackDir CurrentAttackDir
         {
             get
             {
@@ -35,15 +31,15 @@ namespace GPOneButton
             {
                 if (currentAttackDir != value)
                 {
-                    this.Dir = DetermineAttackDir();
+                    this.moveDirection = DetermineAttackDirection();
                     currentAttackDir = value;
                 }
             }
         }
-        private AttackDir currentAttackDir;
+        AttackDir currentAttackDir;
 
         enum BladeState { Stationary, Attacking, Returning, Stopped };
-        public BladeState CurrentState
+        BladeState CurrentState
         {
             get
             {
@@ -56,14 +52,12 @@ namespace GPOneButton
                     currentState = OnStateChange(value);
             }
         }
-        private BladeState currentState;
-
-        int StoppedCounter, StoppedCounterMax;
+        BladeState currentState;
 
         public BladeTrap(Game1 game, int x, int y, Link link) : base (game)
         {
-            this.Pos.X = (float)(x * 40) + 20;
-            this.Pos.Y = (float)(y * 40) + 20;
+            this.Position.X = (float)(x * 40) + 20;
+            this.Position.Y = (float)(y * 40) + 20;
             this.link = link;
         }
 
@@ -74,7 +68,6 @@ namespace GPOneButton
             spriteTexture = content.Load<Texture2D>("EnemySprites/BladeTrap");
 
             AttackBoxes = new Rectangle[4];
-            AttackAxis = new Rectangle(0,0,0,0);
 
             AttackSound = content.Load<SoundEffect>("Audio/BladeTrapAttack");
             StopSound = content.Load<SoundEffect>("Audio/BladeTrapTap");
@@ -83,12 +76,12 @@ namespace GPOneButton
             ReturnSpeed = 80f;
             AttackBoxGirth = 70f;
             AttackBoxOffSet = -15f;
-            Dir = new Vector2(0, 0);
+            moveDirection = new Vector2(0, 0);
             Scale = .24f;
             StoppedCounter = 0;
             StoppedCounterMax = 30;
 
-            StationaryPos = Pos;
+            OriginPosition = Position;
             CurrentState = BladeState.Stationary;
 
             SetHitBoxes();
@@ -104,66 +97,56 @@ namespace GPOneButton
         {
             if (CheckForLink())
             {
-                this.Dir = DetermineAttackDir();
+                moveDirection = DetermineAttackDirection();
                 AttackSound.Play(.7f,0,0);
             }
-
-            if (this.Dir.Length() > 0)
-            {
-                if(this.CurrentState == BladeState.Attacking)
-                    this.Pos += ((Vector2.Normalize(Dir) * (lastUpdateTime / 1000)) * this.Speed);
-
-                if(this.CurrentState == BladeState.Returning)
-                    this.Pos += ((Vector2.Normalize(Dir) * (lastUpdateTime / 1000)) * this.ReturnSpeed);
-
-                this.UpdateHitBoxes();
-            }
-
-            switch(this.CurrentState)
+            
+            switch(CurrentState)
             {
                 case BladeState.Attacking:
-                    if (this.ReachedEdgeOfAttackBox())
+                    if (ReachedEdgeOfAttackBox())
+                        CurrentState = BladeState.Stopped;
+
+                    if (moveDirection.Length() > 0)
                     {
-                        this.CurrentState = BladeState.Stopped;
-                        StopSound.Play();
-                        this.Dir = new Vector2(0, 0);
+                        Position += ((Vector2.Normalize(moveDirection) * (lastUpdateTime / 1000)) * this.Speed);
+                        UpdateHitBoxes();
                     }
+
                     break;
 
                 case BladeState.Stopped:
                     StoppedCounter++;
 
                     if (StoppedCounter == StoppedCounterMax)
-                    {
-                        this.CurrentState = BladeState.Returning;
-                        StoppedCounter = 0;
-                    }
+                        CurrentState = BladeState.Returning;
                     break;
 
                 case BladeState.Returning:
-                    this.Dir = GetReturnDirection();
+                    if (SmallHitBox.Intersects(StationaryPosHitBox))
+                        ReturnSpeed = 25f;                
 
-                    if (this.SmallHitBox.Intersects(this.StationaryPosHitBox))
-                        this.ReturnSpeed = 25f;
-
-                    if (this.CheckIfReturned())
+                    if (CheckIfReturnedToOrigin())
                     {
-                        this.AttackAxis = new Rectangle(0, 0, 0, 0);
-                        this.Pos = this.StationaryPos;
-                        this.Dir = new Vector2(0, 0);
+                        Position = OriginPosition;
+                        moveDirection = new Vector2(0, 0);
                     }
+
+                    if(Position == OriginPosition)
+                    {
+                        StoppedCounter++;
+
+                        if (StoppedCounter == 15)
+                            CurrentState = BladeState.Stationary;
+                    }
+
+                    if (moveDirection.Length() > 0)
+                    {
+                        Position += ((Vector2.Normalize(moveDirection) * (lastUpdateTime / 1000)) * this.ReturnSpeed);
+                        UpdateHitBoxes();
+                    }
+
                     break;
-            }
-
-            if (this.CurrentState == BladeState.Returning && this.Pos == this.StationaryPos)
-            {
-                StoppedCounter++;
-
-                if(StoppedCounter == 15)
-                {
-                    StoppedCounter = 0;
-                    this.CurrentState = BladeState.Stationary;
-                }
             }
 
             CheckLinkHit();
@@ -171,11 +154,11 @@ namespace GPOneButton
 
         private void UpdateHitBoxes()
         {
-            this.HitBox.X = (int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale));
-            this.HitBox.Y = (int)(this.Pos.Y - ((this.spriteTexture.Height / 2) * this.Scale));
+            HitBox.X = (int)(Position.X - ((spriteTexture.Width / 2) * Scale));
+            HitBox.Y = (int)(Position.Y - ((spriteTexture.Height / 2) * Scale));
 
-            this.SmallHitBox.X = (int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16);
-            this.SmallHitBox.Y = (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16);
+            this.SmallHitBox.X = (int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16);
+            this.SmallHitBox.Y = (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16);
         }
 
         //Floats taken in correspond to how many squares the BladeTrap's AttackBoxes will be able to reach
@@ -184,12 +167,15 @@ namespace GPOneButton
             this.AttackBoxes[0] =
                 new Rectangle((int)(this.HitBox.Left + this.AttackBoxOffSet), (int)(this.HitBox.Top - (40 * UP)),
                 (int)this.AttackBoxGirth, (int)(40 * UP));
+
             this.AttackBoxes[1] =
                 new Rectangle((int)(this.HitBox.Right), (int)(this.HitBox.Top + this.AttackBoxOffSet),
                 (int)(40 * RIGHT), (int)this.AttackBoxGirth);
+
             this.AttackBoxes[2] =
                 new Rectangle((int)(this.HitBox.Left + this.AttackBoxOffSet), (int)(this.HitBox.Bottom),
                 (int)this.AttackBoxGirth, (int)(40 * DOWN));
+
             this.AttackBoxes[3] =
                 new Rectangle((int)(this.HitBox.Left - (40 * LEFT)), (int)(this.HitBox.Top + this.AttackBoxOffSet),
                     (int)(40 * LEFT), (int)this.AttackBoxGirth);
@@ -204,7 +190,7 @@ namespace GPOneButton
                 if (this.link.HitBox.Intersects(r) && this.CurrentState == BladeState.Stationary)
                 {
                     this.CurrentState = BladeState.Attacking;
-                    DetermineAttackDir(i);
+                    currentAttackDir = DetermineAttackDir(i); 
                     return true;
                 }
             }
@@ -228,21 +214,20 @@ namespace GPOneButton
             switch(currentAttackDir)
             {
                 case BladeTrap.AttackDir.Up:
-                    if (this.Pos.Y <= AttackBoxes[0].Top) return true;
+                    if (this.Position.Y <= AttackBoxes[0].Top) return true;
                     break;
 
                 case BladeTrap.AttackDir.Down:
-                    if (this.Pos.Y >= AttackBoxes[2].Bottom) return true;
+                    if (this.Position.Y >= AttackBoxes[2].Bottom) return true;
                     break;
 
                 case BladeTrap.AttackDir.Left:
-                    if (this.Pos.X <= AttackBoxes[3].Left) return true;
+                    if (this.Position.X <= AttackBoxes[3].Left) return true;
                     break;
 
                 case BladeTrap.AttackDir.Right:
-                    if (this.Pos.X >= AttackBoxes[1].Right) return true;
+                    if (this.Position.X >= AttackBoxes[1].Right) return true;
                     break;
-
             }
 
             return false;
@@ -250,10 +235,10 @@ namespace GPOneButton
 
         private Vector2 GetReturnDirection()
         {
-            return this.Dir * -1;
+            return moveDirection * -1;
         }
 
-        private bool CheckIfReturned()
+        private bool CheckIfReturnedToOrigin()
         {
             if (this.HitBox.Top == this.AttackBoxes[0].Bottom && this.HitBox.Left == this.AttackBoxes[3].Right)
             {
@@ -270,7 +255,7 @@ namespace GPOneButton
             return this.spriteTexture;
         }
 
-        public Vector2 DetermineAttackDir()
+        public Vector2 DetermineAttackDirection()
         {
             Vector2 dirVect = Vector2.Zero;
             switch(currentAttackDir)
@@ -294,21 +279,25 @@ namespace GPOneButton
             return dirVect;
         }
 
-        //TODO: Implement innards of this OnStateChange function
-        public BladeState OnStateChange(BladeTrap.BladeState state)
+        private BladeState OnStateChange(BladeTrap.BladeState state)
         {
             switch(state)
             {
-                case BladeTrap.BladeState.Attacking:
-                    break;
-
                 case BladeTrap.BladeState.Returning:
+                    StoppedCounter = 0;
+                    moveDirection = GetReturnDirection();
                     break;
 
                 case BladeTrap.BladeState.Stationary:
+                    StoppedCounter = 0;
                     break;
 
                 case BladeTrap.BladeState.Stopped:
+                    if (state == BladeTrap.BladeState.Attacking)
+                    {
+                        StopSound.Play();
+                        moveDirection = Vector2.Zero;
+                    }
                     break;
             }
 
@@ -317,14 +306,14 @@ namespace GPOneButton
 
         private void SetHitBoxes()
         {
-            HitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale)),
-                (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
+            HitBox = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale)),
+                (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
                 (int)(this.spriteTexture.Height * this.Scale));
 
-            SmallHitBox = new Rectangle((int)(this.Pos.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16),
-                (int)((this.Pos.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16), 10, 10);
+            SmallHitBox = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16),
+                (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16), 10, 10);
 
-            StationaryPosHitBox = new Rectangle((int)(this.StationaryPos.X - 5), (int)(this.StationaryPos.Y - 5), 10, 10);
+            StationaryPosHitBox = new Rectangle((int)(this.OriginPosition.X - 5), (int)(this.OriginPosition.Y - 5), 10, 10);
         }
 
         private AttackDir DetermineAttackDir(int elementInAttackBoxes)
