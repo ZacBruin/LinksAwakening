@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>Z:/pub/One-Button-Game/GPOneButton/Content/EnemySprites/BladeTrap.png</SourceFile>
-  <SourceTime>2016-02-12T15:15:58.6034191-06:00</SourceTime>
-  <DestFile>Z:/pub/One-Button-Game/GPOneButton/Content/bin/Windows/EnemySprites/BladeTrap.xnb</DestFile>
-  <DestTime>2016-02-12T15:18:18.9932185-06:00</DestTime>
+  <SourceFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/EnemySprites/BladeTrap.png</SourceFile>
+  <SourceTime>2016-02-12T20:24:31.4612298-06:00</SourceTime>
+  <DestFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/bin/Windows/EnemySprites/BladeTrap.xnb</DestFile>
+  <DestTime>2016-02-12T20:56:43.4343286-06:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2015-01-27T18:23:30-06:00</ImporterTime>
+  <ImporterTime>2015-04-29T12:14:44-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2015-01-27T18:23:30-06:00</ProcessorTime>
+  <ProcessorTime>2015-04-29T12:14:44-05:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

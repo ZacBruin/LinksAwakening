@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>Z:/pub/One-Button-Game/GPOneButton/Content/Audio/BladeTrapTap.wav</SourceFile>
-  <SourceTime>2016-02-12T15:15:58.4006113-06:00</SourceTime>
-  <DestFile>Z:/pub/One-Button-Game/GPOneButton/Content/bin/Windows/Audio/BladeTrapTap.xnb</DestFile>
-  <DestTime>2016-02-12T15:18:22.7841643-06:00</DestTime>
+  <SourceFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/BladeTrapTap.wav</SourceFile>
+  <SourceTime>2016-02-12T20:24:31.3642283-06:00</SourceTime>
+  <DestFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/bin/Windows/Audio/BladeTrapTap.xnb</DestFile>
+  <DestTime>2016-02-12T20:56:49.429339-06:00</DestTime>
   <Importer>WavImporter</Importer>
-  <ImporterTime>2015-01-27T18:23:30-06:00</ImporterTime>
+  <ImporterTime>2015-04-29T12:14:44-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2015-01-27T18:23:30-06:00</ProcessorTime>
+  <ProcessorTime>2015-04-29T12:14:44-05:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>
