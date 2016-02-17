@@ -10,24 +10,26 @@ namespace GPOneButton
 {
     class Room : Microsoft.Xna.Framework.DrawableGameComponent
     {
+        protected ContentManager content;
+        protected GraphicsDeviceManager graphics;
+        protected SpriteBatch spriteBatch;
+
         public StationarySprite[,] Collidables;
-        public float[,] SpriteRotations; 
-
-        public Texture2D Floor;
-        public float FloorScale;
-        public Vector2 FloorPos;
-        public bool IsOnScreen;
-
-        double Pi = MathHelper.Pi;
 
         public List<Object> CollisionList;
         public List<BladeTrap> RoomEnemies;
 
-        int FloorNum;
+        public Vector2 FloorPos;
+        public Texture2D Floor;
 
-        protected ContentManager content;
-        protected GraphicsDeviceManager graphics;
-        protected SpriteBatch spriteBatch;
+        public float[,] SpriteRotations;
+        public float FloorScale;
+        
+        public bool IsOnScreen;
+
+        float Pi = MathHelper.Pi;
+
+        int FloorNum;
 
         public Room(Game game, int floorNum) : base(game)
         {
@@ -57,91 +59,95 @@ namespace GPOneButton
             switch (this.FloorNum)
             {
                 case 1: this.Floor = content.Load<Texture2D>("EnvironmentSprites/Room1Floor");
-                    #region Room1
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 5, 0, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 7, (float)(-Pi));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 7, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 3, (float)0f);
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 6, 0, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 9, 2, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 5, 3, (float)(Pi / 2));
+                    int[,] RockPositions = new int[6,2] { {2,3}, {2,5}, {2,6}, {3,2}, {3,3}, {4,3} };
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 5, 1, (float)0f);
+                    int[,] WallInPositions = new int[5, 3] { {0,0,3}, {0,7,2}, {5,0,0}, {9,7,1}, {9,3,0} }; //also contains rotations
+#region Room1
+                    for (int i = 0; i < WallInPositions.GetLength(0); i++)
+                    {
+                        if (WallInPositions[i, 2] == 0)
+                            this.InsertStationarySprite
+                                (new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), WallInPositions[i, 0], WallInPositions[i, 1], WallInPositions[i, 2]);
+                        else
+                            this.InsertStationarySprite
+                                (new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), WallInPositions[i, 0], WallInPositions[i, 1], (RotationAmt)WallInPositions[i, 2]);
+                    }
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 2, 5, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 3, 2, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 4, 3, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 3, 3, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 2, 3, (float)0f);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 2, 6, (float)0f);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 5, 3, (Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 6, 0, (Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 9, 2, (Pi / 2));                    
+
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 5, 1);
+
+                    for (int i = 0; i < RockPositions.GetLength(0); i++)
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), RockPositions[i, 0], RockPositions[i, 1]);                                                        
 
             for (int i = 1; i < 5; i++)
             {
-                this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 0, (float)(-Pi / 2));
-                this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 7, (float)(Pi / 2));
-                this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i + 4, 7, (float)(Pi / 2));
+                this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi / 2));
+                this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 7, (Pi / 2));
+                this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i + 4, 7, (Pi / 2));
 
                 if (i > 1)
                 {
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i + 5, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i + 4, 3, (float)(-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i + 5, 0, (-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i + 4, 3, (-Pi / 2));
                 }
 
             }
             for (int i = 1; i < 7; i++)
             {
-                this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 0, i, (float)(-Pi));
+                this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 0, i, (-Pi));
                 
                 if(i > 3)
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i, (float)0f);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i);
             }
 #endregion 
                     break;
                 case 2: this.Floor = content.Load<Texture2D>("EnvironmentSprites/Room2Floor");
                     #region Room2
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 0, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 7, (float)(-Pi));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 7, (float)(Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 0, 7, (-Pi));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 7, (Pi / 2));
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 0, 2, (float)(-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 0, 2, (-Pi / 2));
 
                     for (int i = 0; i < 9; i++)
                     {
-                      this.InsertStationarySprite(new StationarySprite (this.Game, 0.0f, SpriteEffects.None, 0), i, 0, (float)(-Pi / 2));
+                      this.InsertStationarySprite(new StationarySprite (this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi / 2));
                      if (i > 0)
                       {
-                         this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 7, (float)(Pi / 2));
+                         this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 7, (Pi / 2));
                       }
                     }       
 
                   for (int i = 1; i < 3 ; i++)
                   {
-                      this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), i*2, 1, (float)0);
+                      this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), i*2, 1);
                       if(i%2 != 0)
                        {
-                           this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), i, 6, (float)0);
-                           this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), i+5, 6, (float)0);
+                           this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), i, 6);
+                           this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), i+5, 6);
                        }
                    }
 
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 8, 6, (float)0);
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 5, 1, (float)0);
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 7, 1, (float)0);
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 3, 6, (float)0);
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 4, 6, (float)0);
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 5, 6, (float)0);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 8, 6);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 5, 1);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 7, 1);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 3, 6);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 4, 6);
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 5, 6);
 
 
                  for (int i = 3; i < 7; i++)
                  {
-                  this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 0, i, (float)(-Pi));
+                  this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 0, i, (-Pi));
                         if (i > 3)
-                           this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i, (float)0);
+                           this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i);
                      if (i > 4)
-                         this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i-4, (float)0);
+                         this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i-4);
                  }
 
             #endregion
@@ -149,55 +155,56 @@ namespace GPOneButton
                 case 3: this.Floor = content.Load<Texture2D>("EnvironmentSprites/Room3Floor");
                     #region Room3
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 5), 6, 1, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 5), 6, 6, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 5), 8, 3, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch1), 6, 1);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch1), 6, 6);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch1), 8, 3);
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 6), 8, 1, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 6), 6, 3, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 6), 8, 6, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch2), 8, 1);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch2), 6, 3);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch2), 8, 6);
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 1, 2, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 3, 6, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 7), 2, 7, (float)Pi);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 1, 2);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 3, 6);
+
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Door), 2, 7, Pi);
 
                     for (int i = 0; i < 2; i++)
                     {
                         if (i > 0)
                             i += 4;
 
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), i, 0, (float)(-Pi / 2));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), i, 7, (float)(-Pi));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), i+4, 0, (float)0);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), i + 4, 7, (float)(Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), i, 0, (-Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), i, 7, (-Pi));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), i+4, 0);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), i + 4, 7, (Pi / 2));
                     }
             
 
                     for (int i = 1; i < 7; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite (this.Game, 0.0f, SpriteEffects.None, 0), 4, i, (float)0);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i, (float)0);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 5, i, (float)(Pi));
+                        this.InsertStationarySprite(new StationarySprite (this.Game, EnvirSpriteType.WallFace), 4, i);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 5, i, (Pi));
                     }
 
                     for (int i = 1; i < 4; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 0, (float)(-Pi / 2));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i+5, 0, (float)(-Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i+5, 0, (-Pi / 2));
                     }
 
                     for (int i = 1; i < 7; i++)
                     {
                         if(i != 3)
-                        this.InsertStationarySprite(new StationarySprite (this.Game, 0.0f, SpriteEffects.None, 0), 0, i, (float)(-Pi));
+                        this.InsertStationarySprite(new StationarySprite (this.Game, EnvirSpriteType.WallFace), 0, i, (-Pi));
                     }
 
                     for (int i = 1; i < 3; i++)
                     {
                         if (i > 1)
                             i += 1;
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 7, (float)(Pi / 2));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i+5, 7, (float)(Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 7, (Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i+5, 7, (Pi / 2));
                     }
 
                     #endregion
@@ -206,38 +213,36 @@ namespace GPOneButton
                     #region Room4
                     for (int i = 1; i < 7; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 0, i, (float)Pi);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i, (float)0f);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 7, (float)(Pi/2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 0, i, Pi);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 7, (Pi/2));
                     }
 
                     for (int i = 3; i < 7; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 0, (float)(-Pi/2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi/2));
                     }
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 0, (float)(-Pi/2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 7, (float)Pi);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 0, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 7, (float)(Pi/2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 0, 0, (-Pi/2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 0, 7, Pi);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 7, (Pi/2));
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 1, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 8, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 8, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 7, 7, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 8, 7, (float)(Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 1, 0, (-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 7, 7, (Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 8, 0, (-Pi / 2));                   
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 8, 7, (Pi / 2));
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 6, 1, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 6, 2, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 6, 4, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 1, 3, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 3, 3, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 1, 3, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 1, 5, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 8, 1, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 8, 2, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 7, 5, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 4), 1, 1, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 1, 1);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 1, 3);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 1, 5);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 3, 3);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 6, 1);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 6, 2);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 6, 4);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 7, 5);                  
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 8, 1);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Rock), 8, 2);                                       
 
             #endregion
                     break;
@@ -245,38 +250,37 @@ namespace GPOneButton
                     #region Room5
                     for (int i = 1; i < 7; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 0, i, (float)Pi);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 9, i, (float)0f);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 7, (float)(Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 0, i, Pi);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 9, i);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 7, (Pi / 2));
                     }
 
                     for (int i = 1; i < 3; i++)
                     {
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i, 0, (float)(-Pi/2));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i+6, 0, (float)(-Pi / 2));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 3, i, (float)0);
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), 6, i, (float)(-Pi));
-                        this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 0), i+6, 7, (float)(Pi/2));
-                    }
-            
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi/2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i+6, 0, (-Pi / 2));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 3, i);
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 6, i, (-Pi));
+                        this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i+6, 7, (Pi/2));
+                    }            
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 0, (float)(-Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 0, 7, (float)Pi);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 0, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 9, 7, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 3, 0, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 1), 6, 0, (float)(-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 0, 0, (-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 0, 7, Pi);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 3, 0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 6, 0, (-Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallInCorner), 9, 7, (Pi / 2));                                     
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 4, 0, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 5, 0, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 3, 3, (float)(Pi / 2));
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 2), 6, 3, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 3, 3, (Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 4, 0, (Pi / 2));
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 5, 0);                   
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallOutCorner), 6, 3);
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 5), 2, 2, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 5), 7, 5, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch1), 2, 2);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch1), 7, 5);
 
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 6), 2, 5, (float)0);
-                    this.InsertStationarySprite(new StationarySprite(this.Game, 0.0f, SpriteEffects.None, 6), 7, 2, (float)0);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch2), 2, 5);
+                    this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.Torch2), 7, 2);
 
             #endregion
                     break;
@@ -333,17 +337,38 @@ namespace GPOneButton
             this.SpriteRotations[x, y] = rot;
         }
 
+        public void InsertStationarySprite(StationarySprite s, int x, int y, RotationAmt rot)
+        {
+            this.Collidables[x, y] = s;
+
+            //Determine rotation amount based on rot
+            switch(rot)
+            {
+                case RotationAmt.rot90:
+                    this.SpriteRotations[x, y] = Pi / 2;
+                    break;
+
+                case RotationAmt.rot180:
+                    this.SpriteRotations[x, y] = Pi;
+                    break;
+
+                case RotationAmt.rot270:
+                    this.SpriteRotations[x, y] = -Pi / 2;
+                    break;
+            }
+        }
+
+        public void InsertStationarySprite(StationarySprite s, int x, int y)
+        {
+            this.Collidables[x, y] = s;
+        }
+
         public void FillCollisionList()
         {
             foreach (StationarySprite s in this.Collidables)
             {
-                if (s == null)
-                {}
-
-                else 
-                {
+                if (s != null)
                     this.CollisionList.Add(s);
-                }
             }
         }
 

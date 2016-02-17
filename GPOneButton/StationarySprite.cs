@@ -1,50 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace GPOneButton
 {
-     class StationarySprite : Sprite
-    {
+    public enum EnvirSpriteType 
+    { 
+        WallFace = 0, 
+        WallInCorner, 
+        WallOutCorner, 
+        WallTop, 
+        Rock, 
+        Torch1, 
+        Torch2, 
+        Door 
+    };
+
+    public enum RotationAmt { rot90=1, rot180, rot270 };
+
+    class StationarySprite : Sprite
+    {        
         public Rectangle Col;
-        public Texture2D[] spriteArray;
-        int SpriteNum;
+        Texture2D altSpriteTorch;
 
-        public StationarySprite(Game game, float rotate, SpriteEffects spriteEffect, int spriteNum) : base(game)
+        public StationarySprite(Game game, EnvirSpriteType spriteType) : base(game)
         {
-            this.Rotate = rotate;
-            this.SpriteEffects = spriteEffect;
-            this.SpriteNum = spriteNum;
-
-            spriteArray = new Texture2D[8];
-
-            //HACK: This is a STUPID way to do this.
-            switch (this.SpriteNum)
-            {
-                case 0: spriteArray[0] = content.Load<Texture2D>("EnvironmentSprites/WallFace1");
-                    break;
-                case 1: spriteArray[1] = content.Load<Texture2D>("EnvironmentSprites/WallInCorner");
-                    break;
-                case 2: spriteArray[2] = content.Load<Texture2D>("EnvironmentSprites/WallOutCorner");
-                    break;
-                case 3: spriteArray[3] = content.Load<Texture2D>("EnvironmentSprites/TopOfWall");
-                    break;
-                case 4: spriteArray[4] = content.Load<Texture2D>("EnvironmentSprites/Rock");
-                    break;
-                case 5:
-                case 6: spriteArray[5] = content.Load<Texture2D>("EnvironmentSprites/TorchBlock1");
-                    spriteArray[6] = content.Load<Texture2D>("EnvironmentSprites/TorchBlock2");
-                    break;
-                case 7: spriteArray[7] = content.Load<Texture2D>("EnvironmentSprites/Door");
-                    break;
-            }
-
-            spriteTexture = spriteArray[SpriteNum];
-
+            spriteTexture = DetermineTexture(spriteType);
             Scale = 0.25f;
         }
 
@@ -52,52 +32,89 @@ namespace GPOneButton
         {
             base.LoadContent();
             this.UpdateCol();
-        } 
+        }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-         public Texture2D GetSpriteTexture()
+        public Texture2D GetSpriteTexture()
         {
             return this.spriteTexture;
         }
 
-         public float GetSpriteTextureWidth()
-         {
-             return this.spriteTexture.Width;
-         }
-
-         public float GetSpriteTextureHeight()
-         {
-             return this.spriteTexture.Height;
-         }
-
-         public Vector2 SetPos(Vector2 v)
-         {
-             this.Position.X = v.X;
-             this.Position.Y = v.Y;
-
-             return this.Position;
-         }
-
-         public void UpdateCol()
+        private Texture2D DetermineTexture(EnvirSpriteType type)
         {
-             this.Col = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale)),
-                 (int)((this.Position.Y - (this.spriteTexture.Height /2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
-                 (int)(this.spriteTexture.Height * this.Scale));
+            Texture2D Tex = null;
+
+            switch ((int)type)
+            {
+                case 0: 
+                    Tex = content.Load<Texture2D>("EnvironmentSprites/WallFace1");
+                    break;
+
+                case 1: 
+                    Tex = content.Load<Texture2D>("EnvironmentSprites/WallInCorner");
+                    break;
+
+                case 2: 
+                    Tex = content.Load<Texture2D>("EnvironmentSprites/WallOutCorner");
+                    break;
+
+                case 3: 
+                    Tex = content.Load<Texture2D>("EnvironmentSprites/TopOfWall");
+                    break;
+
+                case 4: 
+                    Tex = content.Load<Texture2D>("EnvironmentSprites/Rock");
+                    break;
+
+                case 5: Tex = content.Load<Texture2D>("EnvironmentSprites/TorchBlock1");
+                    altSpriteTorch = content.Load<Texture2D>("EnvironmentSprites/TorchBlock2");
+                    break;
+
+                case 6: Tex = content.Load<Texture2D>("EnvironmentSprites/TorchBlock2");
+                    altSpriteTorch = content.Load<Texture2D>("EnvironmentSprites/TorchBlock1");
+                    break;
+
+                case 7: Tex = content.Load<Texture2D>("EnvironmentSprites/Door");
+                    break;
+            }
+
+            return Tex;
         }
 
-         public void TorchAlternate()
+        public float GetSpriteTextureWidth()
         {
-            if (this.spriteTexture == spriteArray[5])
-                this.spriteTexture = spriteArray[6];
+            return this.spriteTexture.Width;
+        }
 
-            else
-             this.spriteTexture = spriteArray[5];
+        public float GetSpriteTextureHeight()
+        {
+            return this.spriteTexture.Height;
+        }
+
+        public Vector2 SetPos(Vector2 posVec)
+        {
+            this.Position.X = posVec.X;
+            this.Position.Y = posVec.Y;
+
+            return this.Position;
+        }
+
+        public void UpdateCol()
+        {
+            this.Col = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale)),
+                (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
+                (int)(this.spriteTexture.Height * this.Scale));
+        }
+
+        public void AnimateTorch()
+        {
+            Texture2D tempTex = spriteTexture;
+            spriteTexture = altSpriteTorch;
+            altSpriteTorch = tempTex;
         }
 
     }
