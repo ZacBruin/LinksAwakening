@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/EnvironmentSprites/StairTile.png</SourceFile>
-  <SourceTime>2016-02-12T20:24:31.830251-06:00</SourceTime>
-  <DestFile>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/bin/Windows/EnvironmentSprites/StairTile.xnb</DestFile>
-  <DestTime>2016-02-12T20:56:43.4812044-06:00</DestTime>
+  <SourceFile>C:/Users/zachary.bruin/Desktop/GitHub/One-Button-Game/GPOneButton/Content/EnvironmentSprites/StairTile.png</SourceFile>
+  <SourceTime>2016-02-12T12:18:10.8268767-06:00</SourceTime>
+  <DestFile>C:/Users/zachary.bruin/Desktop/GitHub/One-Button-Game/GPOneButton/Content/bin/Windows/EnvironmentSprites/StairTile.xnb</DestFile>
+  <DestTime>2016-02-17T09:01:38.7742836-06:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T12:14:44-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

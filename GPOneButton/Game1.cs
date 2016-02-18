@@ -255,12 +255,12 @@ namespace GPOneButton
             {
                 if (TorchAnimationCounter == 7)
                 {
-                    room3.Collidables[6, 1].TorchAlternate(); room3.Collidables[8, 1].TorchAlternate();
-                    room3.Collidables[6, 3].TorchAlternate(); room3.Collidables[8, 3].TorchAlternate();
-                    room3.Collidables[6, 6].TorchAlternate(); room3.Collidables[8, 6].TorchAlternate();
+                    room3.Collidables[6, 1].AnimateTorch(); room3.Collidables[8, 1].AnimateTorch();
+                    room3.Collidables[6, 3].AnimateTorch(); room3.Collidables[8, 3].AnimateTorch();
+                    room3.Collidables[6, 6].AnimateTorch(); room3.Collidables[8, 6].AnimateTorch();
 
-                    room5.Collidables[2, 2].TorchAlternate(); room5.Collidables[2, 5].TorchAlternate();
-                    room5.Collidables[7, 2].TorchAlternate(); room5.Collidables[7, 5].TorchAlternate();
+                    room5.Collidables[2, 2].AnimateTorch(); room5.Collidables[2, 5].AnimateTorch();
+                    room5.Collidables[7, 2].AnimateTorch(); room5.Collidables[7, 5].AnimateTorch();
                 }
 
                 if (TorchAnimationCounter >= 14)
