@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -47,10 +44,8 @@ namespace GPOneButton
             Health = new List<Heart>();
 
             spriteArray = new Texture2D[8];
-            spriteArray[0] = content.Load<Texture2D>("LinkSprites/LinkFront"); spriteArray[1] = content.Load<Texture2D>("LinkSprites/LinkFrontRight");
-            spriteArray[2] = content.Load<Texture2D>("LinkSprites/LinkSide"); spriteArray[3] = content.Load<Texture2D>("LinkSprites/LinkSideAlt");
-            spriteArray[4] = content.Load<Texture2D>("LinkSprites/LinkBack"); spriteArray[5] = content.Load<Texture2D>("LinkSprites/LinkBackAlt");
-            spriteArray[6] = content.Load<Texture2D>("LinkSprites/LinkGet"); spriteArray[7] = content.Load<Texture2D>("LinkSprites/LinkDead");
+
+            SetSpriteArray();
 
             GetsHurt = content.Load<SoundEffect>("Audio/LinkTakeDamage");
 
@@ -96,6 +91,18 @@ namespace GPOneButton
             return this.spriteTexture.Height * this.Scale;
         }
 
+        private void SetSpriteArray()
+        {
+            spriteArray[0] = content.Load<Texture2D>("LinkSprites/LinkFront"); 
+            spriteArray[1] = content.Load<Texture2D>("LinkSprites/LinkFrontRight");
+            spriteArray[2] = content.Load<Texture2D>("LinkSprites/LinkSide");
+            spriteArray[3] = content.Load<Texture2D>("LinkSprites/LinkSideAlt");
+            spriteArray[4] = content.Load<Texture2D>("LinkSprites/LinkBack"); 
+            spriteArray[5] = content.Load<Texture2D>("LinkSprites/LinkBackAlt");
+            spriteArray[6] = content.Load<Texture2D>("LinkSprites/LinkGet"); 
+            spriteArray[7] = content.Load<Texture2D>("LinkSprites/LinkDead");
+        }
+
         public void UpdateHitBox()
         {
             this.HitBox.X = ((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2));
@@ -110,7 +117,7 @@ namespace GPOneButton
                 this.spriteTexture = spriteArray[b];
         }
 
-        public void CheckForCollision(Rectangle r)
+        public void CheckWallCollision(Rectangle r)
         {
             Rectangle intersectCheck;
 
@@ -158,7 +165,7 @@ namespace GPOneButton
             {
                 foreach (StationarySprite s in this.room.CollisionList)
                 {
-                    this.CheckForCollision(s.Col);
+                    this.CheckWallCollision(s.Col);
                 }
             }
 
@@ -273,21 +280,21 @@ namespace GPOneButton
         public void TakeDamage()
         {
             bool DamageDealt = false;
-            int z = 1;
+            int i = 1;
 
             if (this.CurrentState == State.Normal)
             {
                 while (!DamageDealt)
                 {
-                    switch (this.Health[this.NumberOfHearts - z].CurrentState)
+                    switch (this.Health[this.NumberOfHearts - i].CurrentState)
                     {
                         case Heart.HeartState.Full:
-                        case Heart.HeartState.Half: this.Health[this.NumberOfHearts - z].TakeDamage();
+                        case Heart.HeartState.Half: this.Health[this.NumberOfHearts - i].TakeDamage();
                             this.CurrentState = State.Recovering;
                             DamageDealt = true;
                             break;
 
-                        case Heart.HeartState.Empty: z++;
+                        case Heart.HeartState.Empty: i++;
                             break;
                     }
                 }
@@ -300,12 +307,10 @@ namespace GPOneButton
         private void UpdateHearts()
         {
             foreach (Heart h in this.Health)
-            {
                 h.UpdateHeartSprite();
-            }
         }
 
-        public bool CheckForDeath()
+        public bool DeathCheck()
         {
             if (this.CurrentState == State.Dead)
                 return true;
