@@ -332,6 +332,10 @@ namespace GPOneButton
 
                 if (i > 2) this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), i, 0, (-Pi / 2));
             }
+
+            this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 7, 7, (Pi / 2));
+            this.InsertStationarySprite(new StationarySprite(this.Game, EnvirSpriteType.WallFace), 8, 7, (Pi / 2));
+
         }
         private void GenFifthRoom()
         {

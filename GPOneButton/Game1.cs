@@ -13,6 +13,7 @@ namespace GPOneButton
 
         Texture2D CollisionOutline, UI, Key, Chest, Treasure, Credit1, Credit2, Credit3;
 
+        SoundEffectInstance SFI;
         SoundEffect KeyGet, ItemGet, Open, Stairs;
         Song DungeonMusic, Credits;
 
@@ -159,6 +160,7 @@ namespace GPOneButton
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
 
             if (lonk.DeathCheck())
             {

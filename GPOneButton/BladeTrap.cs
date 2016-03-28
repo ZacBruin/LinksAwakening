@@ -225,7 +225,7 @@ namespace GPOneButton
         {
             currentState = BladeState.Attacking;
             moveDirection = GetAttackDirection();
-            AttackSound.Play(.7f, 0, 0);
+            AttackSound.Play();
         }
         #endregion
 

@@ -409,60 +409,6 @@
 /processorParam:TextureFormat=Color
 /build:EnvironmentSprites/Door.png
 
-#begin Audio/Level2.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Level2.mp3
-
-#begin Audio/BladeTrapAttack.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BladeTrapAttack.wav
-
-#begin Audio/BladeTrapTap.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/BladeTrapTap.wav
-
-#begin Audio/ItemGet.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/ItemGet.wav
-
-#begin Audio/LinkTakeDamage.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/LinkTakeDamage.wav
-
-#begin Audio/KeyGet.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/KeyGet.wav
-
-#begin Audio/DoorOpen.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/DoorOpen.wav
-
-#begin Audio/Stairs.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Stairs.wav
-
-#begin Audio/Credits.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Credits.mp3
-
 #begin UISprites/Credit1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -495,4 +441,58 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:UISprites/Credit3.png
+
+#begin Audio/BladeTrapTap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/BladeTrapTap.wav
+
+#begin Audio/Credits.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Credits.mp3
+
+#begin Audio/DoorOpen.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/DoorOpen.wav
+
+#begin Audio/ItemGet.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/ItemGet.wav
+
+#begin Audio/KeyGet.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/KeyGet.wav
+
+#begin Audio/Level2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Level2.mp3
+
+#begin Audio/LinkTakeDamage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/LinkTakeDamage.wav
+
+#begin Audio/Stairs.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Stairs.wav
+
+#begin Audio/BladeTrapAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/BladeTrapAttack.wav
 

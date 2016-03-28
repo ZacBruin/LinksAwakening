@@ -40,17 +40,17 @@
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/UISprites/HalfHeart.png</File>
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/UISprites/LinkUI.png</File>
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/EnvironmentSprites/Door.png</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Level2.mp3</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/BladeTrapAttack.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/BladeTrapTap.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/ItemGet.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/LinkTakeDamage.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/KeyGet.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/DoorOpen.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Stairs.wav</File>
-    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Credits.mp3</File>
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/UISprites/Credit1.png</File>
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/UISprites/Credit2.png</File>
     <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/UISprites/Credit3.png</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/BladeTrapTap.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Credits.mp3</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/DoorOpen.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/ItemGet.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/KeyGet.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Level2.mp3</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/LinkTakeDamage.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/Stairs.wav</File>
+    <File>C:/Users/Zac/Documents/GitHub/Games/One-Button-Game/GPOneButton/Content/Audio/BladeTrapAttack.wav</File>
   </SourceFiles>
 </SourceFileCollection>

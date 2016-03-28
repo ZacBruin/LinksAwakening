@@ -112,56 +112,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\1Pixel.xnb" />
-    <None Include="Content\Audio\BladeTrapAttack.xnb" />
-    <None Include="Content\Audio\BladeTrapTap.xnb" />
-    <None Include="Content\Audio\Credits.xnb" />
-    <None Include="Content\Audio\DoorOpen.xnb" />
-    <None Include="Content\Audio\ItemGet.xnb" />
-    <None Include="Content\Audio\KeyGet.xnb" />
-    <None Include="Content\Audio\Level2.xnb" />
-    <None Include="Content\Audio\LinkTakeDamage.xnb" />
-    <None Include="Content\Audio\Stairs.xnb" />
-    <None Include="Content\EnvironmentSprites\Chest.xnb" />
-    <None Include="Content\EnvironmentSprites\ChestOpen.xnb" />
-    <None Include="Content\EnvironmentSprites\Door.xnb" />
-    <None Include="Content\EnvironmentSprites\Key.xnb" />
-    <None Include="Content\EnvironmentSprites\Pizza.xnb" />
-    <None Include="Content\EnvironmentSprites\Room1Floor.xnb" />
-    <None Include="Content\EnvironmentSprites\Room2Floor.xnb" />
-    <None Include="Content\EnvironmentSprites\Room3Floor.xnb" />
-    <None Include="Content\EnvironmentSprites\Room4Floor.xnb" />
-    <None Include="Content\EnvironmentSprites\Room5Floor.xnb" />
-    <None Include="Content\LinkSprites\LinkBack.xnb" />
-    <None Include="Content\LinkSprites\LinkBackAlt.xnb" />
-    <None Include="Content\LinkSprites\LinkDead.xnb" />
-    <None Include="Content\LinkSprites\LinkFront.xnb" />
-    <None Include="Content\LinkSprites\LinkFrontRight.xnb" />
-    <None Include="Content\LinkSprites\LinkGet.xnb" />
-    <None Include="Content\LinkSprites\LinkSide.xnb" />
-    <None Include="Content\LinkSprites\LinkSideAlt.xnb" />
-    <None Include="Content\EnemySprites\BladeTrap.mgcontent" />
-    <None Include="Content\EnvironmentSprites\DungeonTile.mgcontent" />
-    <None Include="Content\EnvironmentSprites\FloorTile.mgcontent" />
-    <None Include="Content\EnvironmentSprites\WallFace1.mgcontent" />
-    <None Include="Content\EnvironmentSprites\Rock.mgcontent" />
-    <None Include="Content\EnvironmentSprites\StairsDown.mgcontent" />
-    <None Include="Content\EnvironmentSprites\StairsUp.mgcontent" />
-    <None Include="Content\EnvironmentSprites\StairTile.mgcontent" />
-    <None Include="Content\EnvironmentSprites\TopOfWall.mgcontent" />
-    <None Include="Content\EnvironmentSprites\TorchBlock1.mgcontent" />
-    <None Include="Content\EnvironmentSprites\TorchBlock2.mgcontent" />
-    <None Include="Content\EnvironmentSprites\WallInCorner.mgcontent" />
-    <None Include="Content\EnvironmentSprites\WallOutCorner.mgcontent" />
-    <None Include="Content\UISprites\Credit1.xnb" />
-    <None Include="Content\UISprites\Credit2.xnb" />
-    <None Include="Content\UISprites\Credit3.xnb" />
-    <None Include="Content\UISprites\EmptyHeart.xnb" />
-    <None Include="Content\UISprites\FullHeart.xnb" />
-    <None Include="Content\UISprites\HalfHeart.xnb" />
-    <None Include="Content\UISprites\LinkUI.xnb" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Content\bin\Windows\" />
     <Folder Include="Content\obj\Windows\EnemySprites\" />
     <Folder Include="Content\obj\Windows\EnvironmentSprites\" />
