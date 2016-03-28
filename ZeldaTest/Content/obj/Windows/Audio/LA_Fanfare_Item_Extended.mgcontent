@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Fanfare_Item_Extended.mp3</SourceFile>
+  <SourceTime>2016-03-11T18:17:39.7222706-06:00</SourceTime>
+  <DestFile>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/bin/Windows/Audio/LA_Fanfare_Item_Extended.xnb</DestFile>
+  <DestTime>2016-03-11T18:28:49.6212136-06:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2015-04-29T12:14:44-05:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2015-04-29T12:14:44-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
