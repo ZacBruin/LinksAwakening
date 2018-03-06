@@ -4,53 +4,53 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnemySprites/BladeTrap.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Chest.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/ChestOpen.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Door.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/DungeonTile.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/FloorTile.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Key.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Pizza.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Rock.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Room1Floor.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Room2Floor.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Room3Floor.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Room4Floor.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/Room5Floor.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/StairsDown.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/StairsUp.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/StairTile.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/TopOfWall.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/TorchBlock1.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/TorchBlock2.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/WallFace1.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/WallInCorner.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/EnvironmentSprites/WallOutCorner.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkBack.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkBackAlt.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkDead.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkFront.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkFrontRight.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkGet.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkSide.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/LinkSprites/LinkSideAlt.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/Credit1.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/Credit2.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/Credit3.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/EmptyHeart.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/FullHeart.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/HalfHeart.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/UISprites/LinkUI.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/1Pixel.png</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/Credits.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/Level2.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_BladeTrap.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Chest_Open.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Fanfare_Item_Extended.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Get_Item2.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Link_Hurt.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Stairs.mp3</File>
-    <File>C:/Users/Zac/documents/visual studio 2013/Projects/ZeldaTest/ZeldaTest/Content/Audio/LA_Sword_Tap.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnemySprites/BladeTrap.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Chest.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/ChestOpen.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Door.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/DungeonTile.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/FloorTile.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Key.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Pizza.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Rock.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Room1Floor.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Room2Floor.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Room3Floor.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Room4Floor.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/Room5Floor.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/StairsDown.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/StairsUp.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/StairTile.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/TopOfWall.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/TorchBlock1.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/TorchBlock2.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/WallFace1.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/WallInCorner.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/EnvironmentSprites/WallOutCorner.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkBack.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkBackAlt.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkDead.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkFront.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkFrontRight.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkGet.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkSide.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/LinkSprites/LinkSideAlt.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/Credit1.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/Credit2.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/Credit3.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/EmptyHeart.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/FullHeart.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/HalfHeart.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/UISprites/LinkUI.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/1Pixel.png</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/Credits.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/Level2.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_BladeTrap.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Chest_Open.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Fanfare_Item_Extended.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Get_Item2.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Link_Hurt.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Stairs.mp3</File>
+    <File>D:/Documents/GitHub/One-Button-Game/ZeldaTest/Content/Audio/LA_Sword_Tap.mp3</File>
   </SourceFiles>
 </SourceFileCollection>
