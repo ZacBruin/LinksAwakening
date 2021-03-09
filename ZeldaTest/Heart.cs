@@ -1,12 +1,16 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace GPOneButton
 {
     class Heart : Sprite
     {
         public Texture2D Full, Half, Empty;
-        public enum HeartState { Full, Half, Empty };
+        public enum HeartState
+        {
+            Full,
+            Half,
+            Empty
+        };
 
         public HeartState CurrentState
         {
@@ -47,15 +51,15 @@ namespace GPOneButton
             switch (CurrentState)
             {
                 case HeartState.Full: 
-                    this.spriteTexture = Full;
+                    spriteTexture = Full;
                     break;
 
                 case HeartState.Half: 
-                    this.spriteTexture = Half;
+                    spriteTexture = Half;
                     break;
 
                 case HeartState.Empty: 
-                    this.spriteTexture = Empty;
+                    spriteTexture = Empty;
                     break;
             }
         }
@@ -65,11 +69,11 @@ namespace GPOneButton
             switch (CurrentState)
             {
                 case HeartState.Full: 
-                    this.CurrentState = HeartState.Half;
+                    CurrentState = HeartState.Half;
                     break;
 
                 case HeartState.Half: 
-                    this.CurrentState = HeartState.Empty;
+                    CurrentState = HeartState.Empty;
                     break;
 
                 case HeartState.Empty:
@@ -79,7 +83,7 @@ namespace GPOneButton
 
         public Texture2D GetSpriteTexture()
         {
-            return this.spriteTexture;
+            return spriteTexture;
         }
 
     }

@@ -15,7 +15,12 @@ namespace GPOneButton
         Door 
     };
 
-    public enum RotationAmt { rot90=1, rot180, rot270 };
+    public enum RotationAmt
+    {
+        rot90 = 1,
+        rot180,
+        rot270
+    };
 
     class StationarySprite : Sprite
     {        
@@ -31,7 +36,7 @@ namespace GPOneButton
         protected override void LoadContent()
         {
             base.LoadContent();
-            this.UpdateCol();
+            UpdateCol();
         }
 
         public override void Update(GameTime gameTime)
@@ -41,7 +46,7 @@ namespace GPOneButton
 
         public Texture2D GetSpriteTexture()
         {
-            return this.spriteTexture;
+            return spriteTexture;
         }
 
         private Texture2D DetermineTexture(EnvirSpriteType type)
@@ -87,27 +92,27 @@ namespace GPOneButton
 
         public float GetSpriteTextureWidth()
         {
-            return this.spriteTexture.Width;
+            return spriteTexture.Width;
         }
 
         public float GetSpriteTextureHeight()
         {
-            return this.spriteTexture.Height;
+            return spriteTexture.Height;
         }
 
         public Vector2 SetPos(Vector2 posVec)
         {
-            this.Position.X = posVec.X;
-            this.Position.Y = posVec.Y;
+            Position.X = posVec.X;
+            Position.Y = posVec.Y;
 
-            return this.Position;
+            return Position;
         }
 
         public void UpdateCol()
         {
-            this.Col = new Rectangle((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale)),
-                (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale)), (int)(this.spriteTexture.Width * this.Scale),
-                (int)(this.spriteTexture.Height * this.Scale));
+            Col = new Rectangle((int)(Position.X - ((spriteTexture.Width / 2) * Scale)),
+                (int)((Position.Y - (spriteTexture.Height / 2) * Scale)), (int)(spriteTexture.Width * Scale),
+                (int)(spriteTexture.Height * Scale));
         }
 
         public void AnimateTorch()

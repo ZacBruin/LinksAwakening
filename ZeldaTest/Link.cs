@@ -69,9 +69,9 @@ namespace GPOneButton
 
             HBThoriz = 12; HBTvert = 6;
 
-            HitBox = new Rectangle(((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2)),
-                    ((int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale) + HBTvert*2)),
-                    ((int)(this.spriteTexture.Width * this.Scale) - HBThoriz), (int)(this.spriteTexture.Height * this.Scale) - HBTvert*2);
+            HitBox = new Rectangle(((int)(Position.X - ((spriteTexture.Width / 2) * Scale) + HBThoriz / 2)),
+                    ((int)((Position.Y - (spriteTexture.Height / 2) * Scale) + HBTvert*2)),
+                    ((int)(spriteTexture.Width * Scale) - HBThoriz), (int)(spriteTexture.Height * Scale) - HBTvert*2);
         }
 
         public override void Update(GameTime gameTime)
@@ -83,12 +83,12 @@ namespace GPOneButton
 
         public float GetSpriteTextureWidth()
         {
-            return this.spriteTexture.Width * this.Scale;
+            return spriteTexture.Width * Scale;
         }
 
         public float GetSpriteTextureHeight()
         {
-            return this.spriteTexture.Height * this.Scale;
+            return spriteTexture.Height * Scale;
         }
 
         private void SetSpriteArray()
@@ -105,42 +105,42 @@ namespace GPOneButton
 
         public void UpdateHitBox()
         {
-            this.HitBox.X = ((int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + HBThoriz / 2));
-            this.HitBox.Y = (int)(this.Position.Y - ((this.spriteTexture.Height / 2) * this.Scale) + HBTvert * 2);
+            HitBox.X = ((int)(Position.X - ((spriteTexture.Width / 2) * Scale) + HBThoriz / 2));
+            HitBox.Y = (int)(Position.Y - ((spriteTexture.Height / 2) * Scale) + HBTvert * 2);
         }
 
         private void CycleWalkAnimation(int a, int b)
         {
             if (AnimationCounter >= 1 && AnimationCounter < AnimationHalf)
-                this.spriteTexture = spriteArray[a];
+                spriteTexture = spriteArray[a];
             if (AnimationCounter >= 9)
-                this.spriteTexture = spriteArray[b];
+                spriteTexture = spriteArray[b];
         }
 
         public void CheckWallCollision(Rectangle r)
         {
             Rectangle intersectCheck;
 
-            if (r.Intersects(this.HitBox))
+            if (r.Intersects(HitBox))
             {
-                intersectCheck = Rectangle.Intersect(r, this.HitBox);
+                intersectCheck = Rectangle.Intersect(r, HitBox);
 
                 if (intersectCheck.Height > intersectCheck.Width)
                 {
-                    if (intersectCheck.Left < this.HitBox.Right && this.Position.X > intersectCheck.Left)
-                        this.Position.X = r.Right + ((int)this.HitBox.Width / 2);
+                    if (intersectCheck.Left < HitBox.Right && Position.X > intersectCheck.Left)
+                        Position.X = r.Right + (HitBox.Width / 2);
 
-                    if (intersectCheck.Right > this.HitBox.Left && this.Position.X < intersectCheck.Right)
-                        this.Position.X = r.Left - ((int)this.HitBox.Width / 2);
+                    if (intersectCheck.Right > HitBox.Left && Position.X < intersectCheck.Right)
+                        Position.X = r.Left - (HitBox.Width / 2);
                 }
 
                 else
                 {
-                    if (intersectCheck.Top < this.HitBox.Bottom && this.Position.Y > intersectCheck.Bottom)
-                        this.Position.Y = (r.Bottom + ((int)this.HitBox.Height / 2) - 5);
+                    if (intersectCheck.Top < HitBox.Bottom && Position.Y > intersectCheck.Bottom)
+                        Position.Y = (r.Bottom + (HitBox.Height / 2) - 5);
 
-                    if (intersectCheck.Bottom > this.HitBox.Top && this.Position.Y < intersectCheck.Top)
-                        this.Position.Y = r.Top - (int)this.GetSpriteTextureHeight() / 2;
+                    if (intersectCheck.Bottom > HitBox.Top && Position.Y < intersectCheck.Top)
+                        Position.Y = r.Top - (int)GetSpriteTextureHeight() / 2;
                 }
             }
         }
@@ -149,36 +149,34 @@ namespace GPOneButton
         {
             KeyboardState kbstate = Keyboard.GetState();
 
-            if(this.Health[0].CurrentState == Heart.HeartState.Empty)
+            if(Health[0].CurrentState == Heart.HeartState.Empty)
             {
-                this.CurrentState = State.Dead;
-                this.spriteTexture = spriteArray[7];
+                CurrentState = State.Dead;
+                spriteTexture = spriteArray[7];
             }
 
-            if(this.PlayerHasBeatenGame)
+            if(PlayerHasBeatenGame)
             {
-                this.CurrentState = State.Win;
-                this.spriteTexture = spriteArray[6];
+                CurrentState = State.Win;
+                spriteTexture = spriteArray[6];
             }
 
-            if (this.room != null)
+            if (room != null)
             {
-                foreach (StationarySprite s in this.room.CollisionList)
-                {
-                    this.CheckWallCollision(s.Col);
-                }
+                foreach (StationarySprite s in room.CollisionList)
+                    CheckWallCollision(s.Col);
             }
 
             if (AnimationCounter >= AnimationMax)
                 AnimationCounter = 0;
 
-            if(this.CurrentState == State.Recovering)
+            if(CurrentState == State.Recovering)
             {
                 if(RecoveryCounter == RecoveryMax)
                 {
                     RecoveryCounter = 0;
-                    this.CurrentState = State.Normal;
-                    this.color = Color.White;
+                    CurrentState = State.Normal;
+                    color = Color.White;
                 }
 
                 else
@@ -186,34 +184,34 @@ namespace GPOneButton
                     RecoveryCounter++;
 
                     if (RecoveryCounter % 4 == 0)
-                        this.color = Color.DarkBlue;
+                        color = Color.DarkBlue;
 
                     else if (RecoveryCounter % 9 == 0)
-                        this.color = Color.Fuchsia;
+                        color = Color.Fuchsia;
 
                     else
-                        this.color = Color.White;
+                        color = Color.White;
                 }               
             }
 
             Vector2 LinkDir = new Vector2(0, 0);
 
             #region KeyBoard
-            if (this.CurrentState != State.Dead && this.CurrentState != State.Win)
+            if (CurrentState != State.Dead && CurrentState != State.Win)
             {
                 if (kbstate.IsKeyUp(Keys.Left) && kbstate.IsKeyUp(Keys.Right) && kbstate.IsKeyUp(Keys.Up) && kbstate.IsKeyUp(Keys.Down))
                 {
                     AnimationCounter = 0;
                     switch (value)
                     {
-                        case DirectionFace.Left: this.spriteTexture = spriteArray[2];
+                        case DirectionFace.Left: spriteTexture = spriteArray[2];
                             break;
-                        case DirectionFace.Right: this.spriteTexture = spriteArray[2];
-                            this.SpriteEffects = SpriteEffects.FlipHorizontally;
+                        case DirectionFace.Right: spriteTexture = spriteArray[2];
+                            SpriteEffects = SpriteEffects.FlipHorizontally;
                             break;
-                        case DirectionFace.Up: this.spriteTexture = spriteArray[5];
+                        case DirectionFace.Up: spriteTexture = spriteArray[5];
                             break;
-                        case DirectionFace.Down: this.spriteTexture = spriteArray[1];
+                        case DirectionFace.Down: spriteTexture = spriteArray[1];
                             break;
                     }
                 }
@@ -224,19 +222,19 @@ namespace GPOneButton
                 if (kbstate.IsKeyDown(Keys.Left))
                 {
                     LinkDir += new Vector2(-1, 0);
-                    this.SpriteEffects = SpriteEffects.None;
+                    SpriteEffects = SpriteEffects.None;
 
                     value = DirectionFace.Left;
 
-                    this.CycleWalkAnimation(3, 2);
+                    CycleWalkAnimation(3, 2);
                 }
 
                 if (kbstate.IsKeyDown(Keys.Right))
                 {
                     LinkDir += new Vector2(1, 0);
                     value = DirectionFace.Right;
-                    this.spriteTexture = spriteArray[2];
-                    this.SpriteEffects = SpriteEffects.FlipHorizontally;
+                    spriteTexture = spriteArray[2];
+                    SpriteEffects = SpriteEffects.FlipHorizontally;
 
                     CycleWalkAnimation(3, 2);
                 }
@@ -245,8 +243,8 @@ namespace GPOneButton
                 {
                     LinkDir += new Vector2(0, -1);
                     value = DirectionFace.Up;
-                    this.spriteTexture = spriteArray[4];
-                    this.SpriteEffects = SpriteEffects.None;
+                    spriteTexture = spriteArray[4];
+                    SpriteEffects = SpriteEffects.None;
 
                     CycleWalkAnimation(5, 4);
                 }
@@ -255,16 +253,16 @@ namespace GPOneButton
                 {
                     LinkDir += new Vector2(0, 1);
                     value = DirectionFace.Down;
-                    this.spriteTexture = spriteArray[0];
-                    this.SpriteEffects = SpriteEffects.None;
+                    spriteTexture = spriteArray[0];
+                    SpriteEffects = SpriteEffects.None;
 
                     CycleWalkAnimation(1, 0);
                 }
 
                 if (LinkDir.Length() > 0)
                 {
-                    this.Position += ((Vector2.Normalize(LinkDir) * (lastUpdateTime / 1000)) * this.Speed);
-                    this.UpdateHitBox();
+                    Position += ((Vector2.Normalize(LinkDir) * (lastUpdateTime / 1000)) * this.Speed);
+                    UpdateHitBox();
                 }
             }
 
@@ -274,7 +272,7 @@ namespace GPOneButton
 
         public void AddHeart(Heart h)
         {
-            this.Health.Add(h);         
+            Health.Add(h);         
         }
 
         public void TakeDamage()
@@ -282,15 +280,16 @@ namespace GPOneButton
             bool DamageDealt = false;
             int i = 1;
 
-            if (this.CurrentState == State.Normal)
+            if (CurrentState == State.Normal)
             {
                 while (!DamageDealt)
                 {
-                    switch (this.Health[this.NumberOfHearts - i].CurrentState)
+                    switch (Health[NumberOfHearts - i].CurrentState)
                     {
                         case Heart.HeartState.Full:
-                        case Heart.HeartState.Half: this.Health[this.NumberOfHearts - i].TakeDamage();
-                            this.CurrentState = State.Recovering;
+                        case Heart.HeartState.Half:
+                            Health[NumberOfHearts - i].TakeDamage();
+                            CurrentState = State.Recovering;
                             DamageDealt = true;
                             break;
 
@@ -300,19 +299,19 @@ namespace GPOneButton
                 }
 
                 GetsHurt.Play();
-                this.UpdateHearts();
+                UpdateHearts();
             }
         }
 
         private void UpdateHearts()
         {
-            foreach (Heart h in this.Health)
+            foreach (Heart h in Health)
                 h.UpdateHeartSprite();
         }
 
         public bool DeathCheck()
         {
-            if (this.CurrentState == State.Dead)
+            if (CurrentState == State.Dead)
                 return true;
             else
                 return false;
@@ -320,8 +319,8 @@ namespace GPOneButton
 
         public void BringBackToLife()
         {
-            if (this.CurrentState == State.Dead)
-                this.CurrentState = State.Normal;
+            if (CurrentState == State.Dead)
+                CurrentState = State.Normal;
         }
     }
 }

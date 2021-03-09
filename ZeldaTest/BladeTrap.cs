@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 
 namespace GPOneButton
@@ -29,7 +28,7 @@ namespace GPOneButton
             {
                 if (currentAttackDir != value)
                 {
-                    this.moveDirection = GetAttackDirection();
+                    moveDirection = GetAttackDirection();
                     currentAttackDir = value;
                 }
             }
@@ -76,8 +75,8 @@ namespace GPOneButton
 
         public BladeTrap(Game1 game, int x, int y, Link link) : base (game)
         {
-            this.Position.X = (float)(x * 40) + 20;
-            this.Position.Y = (float)(y * 40) + 20;
+            Position.X = (float)(x * 40) + 20;
+            Position.Y = (float)(y * 40) + 20;
             this.link = link;
         }
 
@@ -117,8 +116,8 @@ namespace GPOneButton
 
             StateBasedUpdates();
 
-            if (this.HitBox.Intersects(this.link.HitBox))
-                this.link.TakeDamage();
+            if (HitBox.Intersects(link.HitBox))
+                link.TakeDamage();
 
             base.Update(gameTime);
         }
@@ -163,8 +162,8 @@ namespace GPOneButton
             HitBox.X = (int)(Position.X - ((spriteTexture.Width / 2) * Scale));
             HitBox.Y = (int)(Position.Y - ((spriteTexture.Height / 2) * Scale));
 
-            this.SmallHitBox.X = (int)(this.Position.X - ((this.spriteTexture.Width / 2) * this.Scale) + 16);
-            this.SmallHitBox.Y = (int)((this.Position.Y - (this.spriteTexture.Height / 2) * this.Scale) + 16);
+            SmallHitBox.X = (int)(Position.X - ((spriteTexture.Width / 2) * Scale) + 16);
+            SmallHitBox.Y = (int)((Position.Y - (spriteTexture.Height / 2) * Scale) + 16);
         }
 
         private void StateBasedUpdates()
@@ -239,19 +238,19 @@ namespace GPOneButton
             Vector2 dirVect = Vector2.Zero;
             switch (currentAttackDir)
             {
-                case BladeTrap.AttackDir.Up:
+                case AttackDir.Up:
                     dirVect = new Vector2(0, -1);
                     break;
 
-                case BladeTrap.AttackDir.Down:
+                case AttackDir.Down:
                     dirVect = new Vector2(0, 1);
                     break;
 
-                case BladeTrap.AttackDir.Left:
+                case AttackDir.Left:
                     dirVect = new Vector2(-1, 0);
                     break;
 
-                case BladeTrap.AttackDir.Right:
+                case AttackDir.Right:
                     dirVect = new Vector2(1, 0);
                     break;
             }
@@ -287,19 +286,19 @@ namespace GPOneButton
             switch(currentAttackDir)
             {
                 case BladeTrap.AttackDir.Up:
-                    if (this.Position.Y <= AttackBoxes[0].Top) return true;
+                    if (Position.Y <= AttackBoxes[0].Top) return true;
                     break;
 
                 case BladeTrap.AttackDir.Down:
-                    if (this.Position.Y >= AttackBoxes[2].Bottom) return true;
+                    if (Position.Y >= AttackBoxes[2].Bottom) return true;
                     break;
 
                 case BladeTrap.AttackDir.Left:
-                    if (this.Position.X <= AttackBoxes[3].Left) return true;
+                    if (Position.X <= AttackBoxes[3].Left) return true;
                     break;
 
                 case BladeTrap.AttackDir.Right:
-                    if (this.Position.X >= AttackBoxes[1].Right) return true;
+                    if (Position.X >= AttackBoxes[1].Right) return true;
                     break;
             }
 
@@ -308,9 +307,9 @@ namespace GPOneButton
 
         private bool HasReturnedToOrigin()
         {
-            if (this.HitBox.Top == this.AttackBoxes[0].Bottom && this.HitBox.Left == this.AttackBoxes[3].Right)
+            if (HitBox.Top == AttackBoxes[0].Bottom && HitBox.Left == AttackBoxes[3].Right)
             {
-                this.ReturnSpeed = 80f;
+                ReturnSpeed = 80f;
                 return true;
             }
 
@@ -320,7 +319,7 @@ namespace GPOneButton
 
         public Texture2D GetSpriteTexture()
         {
-            return this.spriteTexture;
+            return spriteTexture;
         }
 
     }

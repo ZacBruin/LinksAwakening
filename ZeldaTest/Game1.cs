@@ -21,12 +21,11 @@ namespace GPOneButton
 
         int TorchAnimationCounter, Wait;
 
-        Link lonk;
+        Link link;
         BladeTrap B, B21, B22, B24, B25, B26, B31, B32, B41, B42, B43, B44;
         Room room1, room2, room3, room4, room5;
 
-        public Game1()
-            : base()
+        public Game1() : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -34,21 +33,27 @@ namespace GPOneButton
             graphics.PreferredBackBufferWidth = 400;
             graphics.PreferredBackBufferHeight = 360;
 
-            room1 = new Room(this, 1); room2 = new Room(this, 2); room3 = new Room(this, 3);
-            room4 = new Room(this, 4); room5 = new Room(this, 5);
+            room1 = new Room(this, 1);
+            room2 = new Room(this, 2);
+            room3 = new Room(this, 3);
+            room4 = new Room(this, 4);
+            room5 = new Room(this, 5);
 
-            lonk = new Link(this, room1);
+            link = new Link(this, room1);
 
             CreditsHaveStarted = false; DrawCredit1 = false; DrawCredit2 = false; DrawCredit3 = false;
 
-            B = new BladeTrap(this, 1, 6, lonk);
+            B = new BladeTrap(this, 1, 6, link);
 
-            this.Components.Add(room1); this.Components.Add(room2); this.Components.Add(room3);
-            this.Components.Add(room4); this.Components.Add(room5);
+            Components.Add(room1);
+            Components.Add(room2);
+            Components.Add(room3);
+            Components.Add(room4);
+            Components.Add(room5);
 
-            this.Components.Add(lonk);
+            Components.Add(link);
 
-            this.Components.Add(B);
+            Components.Add(B);
         }
 
         protected override void Initialize()
@@ -84,75 +89,102 @@ namespace GPOneButton
 
             TorchAnimationCounter = 0;
 
-            for (int i = 0; i < lonk.NumberOfHearts; i++)
-            {
-                lonk.AddHeart(new Heart(this));
-            }
+            for (int i = 0; i < link.NumberOfHearts; i++)
+                link.AddHeart(new Heart(this));
 
             room1.SetOnScreen(true);
         }
 
         protected override void UnloadContent()
         {
-            if (lonk.room == room1)
+            if (link.room == room1)
             {
-                this.Components.Remove(B21); this.Components.Remove(B22);
-                this.Components.Remove(B24); this.Components.Remove(B25); this.Components.Remove(B26);
+                Components.Remove(B21);
+                Components.Remove(B22);
+                Components.Remove(B24);
+                Components.Remove(B25);
+                Components.Remove(B26);
 
-                this.Components.Remove(B31); this.Components.Remove(B32);
+                Components.Remove(B31);
+                Components.Remove(B32);
 
-                this.Components.Remove(B41); this.Components.Remove(B42);
-                this.Components.Remove(B43); this.Components.Remove(B44);
+                Components.Remove(B41);
+                Components.Remove(B42);
+                Components.Remove(B43);
+                Components.Remove(B44);
 
-                B = new BladeTrap(this, 1, 6, lonk);
-                this.Components.Add(B);
+                B = new BladeTrap(this, 1, 6, link);
+                Components.Add(B);
                 B.SetAttackBoxes(5f, 0, 0, 0);
             }
 
-            if (lonk.room == room2)
+            if (link.room == room2)
             {
-                this.Components.Remove(B); this.Components.Remove(B31); this.Components.Remove(B32);
+                Components.Remove(B);
+                Components.Remove(B31);
+                Components.Remove(B32);
 
-                B21 = new BladeTrap(this, 2, 6, lonk); B22 = new BladeTrap(this, 3, 1, lonk);
-                B24 = new BladeTrap(this, 6, 1, lonk); B25 = new BladeTrap(this, 7, 6, lonk); B26 = new BladeTrap(this, 8, 1, lonk);
+                B21 = new BladeTrap(this, 2, 6, link);
+                B22 = new BladeTrap(this, 3, 1, link);
+                B24 = new BladeTrap(this, 6, 1, link);
+                B25 = new BladeTrap(this, 7, 6, link);
+                B26 = new BladeTrap(this, 8, 1, link);
 
-                this.Components.Add(B21); this.Components.Add(B22);
-                this.Components.Add(B24); this.Components.Add(B25); this.Components.Add(B26);
+                Components.Add(B21);
+                Components.Add(B22);
+                Components.Add(B24);
+                Components.Add(B25);
+                Components.Add(B26);
 
-                B21.SetAttackBoxes(4f, 0, 0, 0); B22.SetAttackBoxes(0, 0, 4f, 0);
-                B24.SetAttackBoxes(0, 0, 4f, 0); B25.SetAttackBoxes(4f, 0, 0, 0); B26.SetAttackBoxes(0, 0, 4f, 0);
+                B21.SetAttackBoxes(4f, 0, 0, 0);
+                B22.SetAttackBoxes(0, 0, 4f, 0);
+                B24.SetAttackBoxes(0, 0, 4f, 0);
+                B25.SetAttackBoxes(4f, 0, 0, 0);
+                B26.SetAttackBoxes(0, 0, 4f, 0);
             }
 
-            if (lonk.room == room3)
+            if (link.room == room3)
             {
-                this.Components.Remove(B21); this.Components.Remove(B22);
-                this.Components.Remove(B24); this.Components.Remove(B25); this.Components.Remove(B26);
+                Components.Remove(B21);
+                Components.Remove(B22);
+                Components.Remove(B24);
+                Components.Remove(B25);
+                Components.Remove(B26);
 
-                this.Components.Remove(B41); this.Components.Remove(B42);
-                this.Components.Remove(B43); this.Components.Remove(B44);
+                Components.Remove(B41);
+                Components.Remove(B42);
+                Components.Remove(B43);
+                Components.Remove(B44);
 
-                B31 = new BladeTrap(this, 1, 1, lonk); B32 = new BladeTrap(this, 3, 5, lonk);
-                this.Components.Add(B31); this.Components.Add(B32);
+                B31 = new BladeTrap(this, 1, 1, link); B32 = new BladeTrap(this, 3, 5, link);
+                Components.Add(B31); Components.Add(B32);
                 B31.SetAttackBoxes(0, 2f, 0, 0); B32.SetAttackBoxes(4f, 0, 0, 2f);
             }
 
-            if (lonk.room == room4)
+            if (link.room == room4)
             {
-                this.Components.Remove(B31); this.Components.Remove(B32);
+                Components.Remove(B31); Components.Remove(B32);
 
-                B41 = new BladeTrap(this, 5, 2, lonk); B42 = new BladeTrap(this, 6, 3, lonk);
-                B43 = new BladeTrap(this, 1, 4, lonk); B44 = new BladeTrap(this, 1, 6, lonk);
+                B41 = new BladeTrap(this, 5, 2, link);
+                B42 = new BladeTrap(this, 6, 3, link);
+                B43 = new BladeTrap(this, 1, 4, link);
+                B44 = new BladeTrap(this, 1, 6, link);
 
-                this.Components.Add(B41); this.Components.Add(B42);
-                this.Components.Add(B43); this.Components.Add(B44);
+                Components.Add(B41);
+                Components.Add(B42);
+                Components.Add(B43);
+                Components.Add(B44);
 
-                B41.SetAttackBoxes(1f, 0, 4f, 4f); B42.SetAttackBoxes(0, 2f, 0, 2f);
-                B43.SetAttackBoxes(0, 4f, 0, 0); B44.SetAttackBoxes(0, 7f, 0, 0);
+                B41.SetAttackBoxes(1f, 0, 4f, 4f);
+                B42.SetAttackBoxes(0, 2f, 0, 2f);
+                B43.SetAttackBoxes(0, 4f, 0, 0);
+                B44.SetAttackBoxes(0, 7f, 0, 0);
             }
 
-            if (lonk.room == room5)
+            if (link.room == room5)
             {
-                this.Components.Remove(B31); this.Components.Remove(B32);
+                Components.Remove(B31);
+                Components.Remove(B32);
             }
 
         }
@@ -163,7 +195,7 @@ namespace GPOneButton
                 Exit();
 
 
-            if (lonk.DeathCheck())
+            if (link.DeathCheck())
             {
                 MediaPlayer.Stop();
 
@@ -171,17 +203,17 @@ namespace GPOneButton
 
                 if (Wait >= 200)
                 {
-                    this.Restart();
+                    Restart();
                     Wait = 0;
                 }
             }
 
-            if (lonk.PlayerHasBeatenGame && !CreditsHaveStarted)
+            if (link.PlayerHasBeatenGame && !CreditsHaveStarted)
             {
                 Wait++;
                 if (Wait >= 400)
                 {
-                    this.CueTitleSequence();
+                    CueTitleSequence();
                     Wait = 0;
                 }
             }
@@ -212,15 +244,15 @@ namespace GPOneButton
             //////////////////////////////////////////////////////////////////////////////////
 
             //Moving slowly up stairs
-            if (lonk.room == room1 && lonk.Position.X > 200 && lonk.Position.X < 240 && lonk.Position.Y > 80 && lonk.Position.Y < 120)
-                lonk.Speed = 75f;
+            if (link.room == room1 && link.Position.X > 200 && link.Position.X < 240 && link.Position.Y > 80 && link.Position.Y < 120)
+                link.Speed = 75f;
             else
-                lonk.Speed = 150f;
+                link.Speed = 150f;
 
             //Grabbing the Key
-            if (lonk.room == room3 && lonk.Position.X > 115 && lonk.Position.X < 160 && lonk.Position.Y < 90)
+            if (link.room == room3 && link.Position.X > 115 && link.Position.X < 160 && link.Position.Y < 90)
             {
-                lonk.HasKey = true;
+                link.HasKey = true;
                 if (!Key.IsDisposed)
                 {
                     KeyGet.Play();
@@ -229,28 +261,28 @@ namespace GPOneButton
             }
 
             //Opening the door
-            if (lonk.HasKey)
+            if (link.HasKey)
             {
-                if (lonk.room == room3 && lonk.HitBox.Bottom >= lonk.room.Collidables[2, 7].Col.Top)
+                if (link.room == room3 && link.HitBox.Bottom >= link.room.Collidables[2, 7].Col.Top)
                 {
-                    lonk.room.Collidables[2, 7] = null;
-                    lonk.room.CollisionList.RemoveAt(11);
+                    link.room.Collidables[2, 7] = null;
+                    link.room.CollisionList.RemoveAt(11);
                     Open.Play();
-                    lonk.HasKey = false;
+                    link.HasKey = false;
                 }
             }
 
             //Link opening the chest
-            if (lonk.room == room5 && lonk.Position.X > 160 && lonk.Position.X < 240 && lonk.Position.Y < 120)
+            if (link.room == room5 && link.Position.X > 160 && link.Position.X < 240 && link.Position.Y < 120)
             {
-                if (!lonk.PlayerHasBeatenGame)
+                if (!link.PlayerHasBeatenGame)
                 {
                     Open.Play();
                     ItemGet.Play();
                     MediaPlayer.Stop();
                 }
                 Chest = Content.Load<Texture2D>("EnvironmentSprites/ChestOpen");
-                lonk.PlayerHasBeatenGame = true;
+                link.PlayerHasBeatenGame = true;
             }
 
             //Animating the torches
@@ -258,53 +290,56 @@ namespace GPOneButton
             {
                 if (TorchAnimationCounter == 7)
                 {
-                    room3.Collidables[6, 1].AnimateTorch(); room3.Collidables[8, 1].AnimateTorch();
-                    room3.Collidables[6, 3].AnimateTorch(); room3.Collidables[8, 3].AnimateTorch();
-                    room3.Collidables[6, 6].AnimateTorch(); room3.Collidables[8, 6].AnimateTorch();
+                    room3.Collidables[6, 1].AnimateTorch();
+                    room3.Collidables[8, 1].AnimateTorch();
+                    room3.Collidables[6, 3].AnimateTorch();
+                    room3.Collidables[8, 3].AnimateTorch();
+                    room3.Collidables[6, 6].AnimateTorch();
+                    room3.Collidables[8, 6].AnimateTorch();
 
-                    room5.Collidables[2, 2].AnimateTorch(); room5.Collidables[2, 5].AnimateTorch();
-                    room5.Collidables[7, 2].AnimateTorch(); room5.Collidables[7, 5].AnimateTorch();
+                    room5.Collidables[2, 2].AnimateTorch();
+                    room5.Collidables[2, 5].AnimateTorch();
+                    room5.Collidables[7, 2].AnimateTorch();
+                    room5.Collidables[7, 5].AnimateTorch();
                 }
 
                 if (TorchAnimationCounter >= 14)
                     TorchAnimationCounter = 0;
 
-                if (lonk.room == room3 || lonk.room == room5)
+                if (link.room == room3 || link.room == room5)
                     TorchAnimationCounter++;
 
                 //////////////////////////////////////////////////////////////////////////////////
                 //  These handle Link going between rooms   //
                 //////////////////////////////////////////////////////////////////////////////////
 
-                if (lonk.room == room1 && lonk.HitBox.Right >= this.GraphicsDevice.Viewport.Bounds.Right)
-                    this.ChangeRooms(room1, room2, 15, lonk.Position.Y);
+                if (link.room == room1 && link.HitBox.Right >= GraphicsDevice.Viewport.Bounds.Right)
+                    ChangeRooms(room1, room2, 15, link.Position.Y);
 
-                if (lonk.room == room2 && lonk.HitBox.Left <= this.GraphicsDevice.Viewport.Bounds.Left)
-                    this.ChangeRooms(room2, room1, 385, lonk.Position.Y);
+                if (link.room == room2 && link.HitBox.Left <= GraphicsDevice.Viewport.Bounds.Left)
+                    ChangeRooms(room2, room1, 385, link.Position.Y);
 
-                if (lonk.room == room2 && lonk.HitBox.Right >= this.GraphicsDevice.Viewport.Bounds.Right)
-                    this.ChangeRooms(room2, room3, 15, lonk.Position.Y);
+                if (link.room == room2 && link.HitBox.Right >= GraphicsDevice.Viewport.Bounds.Right)
+                    ChangeRooms(room2, room3, 15, link.Position.Y);
 
-                if (lonk.room == room3 && lonk.HitBox.Left <= this.GraphicsDevice.Viewport.Bounds.Left)
-                    this.ChangeRooms(room3, room2, 385, lonk.Position.Y);
+                if (link.room == room3 && link.HitBox.Left <= GraphicsDevice.Viewport.Bounds.Left)
+                    ChangeRooms(room3, room2, 385, link.Position.Y);
 
-                if (lonk.room == room3 && lonk.HitBox.Bottom >= this.GraphicsDevice.Viewport.Bounds.Bottom - 20)
+                if (link.room == room3 && link.HitBox.Bottom >= GraphicsDevice.Viewport.Bounds.Bottom - 20)
                 {
-                    this.ChangeRooms(room3, room4, lonk.Position.X, 20);
+                    ChangeRooms(room3, room4, link.Position.X, 20);
 
                     TorchAnimationCounter = 0;
                 }
 
-                if (lonk.room == room4 && lonk.HitBox.Top <= this.GraphicsDevice.Viewport.Bounds.Top)
-                    this.ChangeRooms(room4, room3, lonk.Position.X, 300);
+                if (link.room == room4 && link.HitBox.Top <= GraphicsDevice.Viewport.Bounds.Top)
+                    ChangeRooms(room4, room3, link.Position.X, 300);
 
 
-                if (lonk.room == room3 && lonk.Position.X > 280 && lonk.Position.Y < 120)
+                if (link.room == room3 && link.Position.X > 280 && link.Position.Y < 120)
                 {
-                    this.ChangeRooms(room3, room5, 180, 260);
-
+                    ChangeRooms(room3, room5, 180, 260);
                     Stairs.Play();
-
                     TorchAnimationCounter = 0;
                 }
             }
@@ -325,16 +360,16 @@ namespace GPOneButton
             {
                 spriteBatch.Draw(UI, new Vector2(0, 320), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
-                if (lonk.room == room3 && !Key.IsDisposed)
+                if (link.room == room3 && !Key.IsDisposed)
                     spriteBatch.Draw(Key, new Vector2(120, 40), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
-                if (lonk.room == room5)
+                if (link.room == room5)
                     spriteBatch.Draw(Chest, new Vector2(180, 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
-                if (lonk.PlayerHasBeatenGame)
-                    spriteBatch.Draw(Treasure, new Vector2(lonk.Position.X - 20, lonk.Position.Y - 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
+                if (link.PlayerHasBeatenGame)
+                    spriteBatch.Draw(Treasure, new Vector2(link.Position.X - 20, link.Position.Y - 60), null, Color.White, 0.0f, new Vector2(0, 0), .25f, SpriteEffects.None, 0);
 
-                foreach (Heart h in lonk.Health)
+                foreach (Heart h in link.Health)
                 {
                     spriteBatch.Draw(h.GetSpriteTexture(), new Vector2(270 + (i * 20), 325), null, Color.White, 0.0f, new Vector2(0, 0), h.Scale,
                         SpriteEffects.None, 0);
@@ -364,54 +399,52 @@ namespace GPOneButton
         {
             for (int i = r.Left; i < r.Right; i++)
             {
-                spriteBatch.Draw(CollisionOutline, new Vector2((float)i, (float)r.Top), c);
-                spriteBatch.Draw(CollisionOutline, new Vector2((float)i, (float)r.Bottom), c);
+                spriteBatch.Draw(CollisionOutline, new Vector2(i, r.Top), c);
+                spriteBatch.Draw(CollisionOutline, new Vector2(i, r.Bottom), c);
             }
 
             for (int i = r.Top; i < r.Bottom; i++)
             {
-                spriteBatch.Draw(CollisionOutline, new Vector2((float)r.Right, (float)i), c);
-                spriteBatch.Draw(CollisionOutline, new Vector2((float)r.Left, (float)i), c);
+                spriteBatch.Draw(CollisionOutline, new Vector2(r.Right, i), c);
+                spriteBatch.Draw(CollisionOutline, new Vector2(r.Left, i), c);
             }
         }
 
         private void ChangeRooms(Room ComingFrom, Room GoingTo, float X, float Y)
         {
             ComingFrom.SetOnScreen(false);
-            lonk.room = GoingTo;
+            link.room = GoingTo;
             GoingTo.SetOnScreen(true);
 
-            lonk.Position.X = X;
-            lonk.Position.Y = Y;
+            link.Position.X = X;
+            link.Position.Y = Y;
 
-            lonk.UpdateHitBox();
-            this.UnloadContent();
+            link.UpdateHitBox();
+            UnloadContent();
         }
 
         public void Restart()
         {
-            lonk.Health.Clear();
+            link.Health.Clear();
 
-            if (lonk.room != room1)
-                ChangeRooms(lonk.room, room1, lonk.GameStartPos.X, lonk.GameStartPos.Y);
+            if (link.room != room1)
+                ChangeRooms(link.room, room1, link.GameStartPos.X, link.GameStartPos.Y);
 
             else
             {
-                lonk.Position = lonk.GameStartPos;
-                lonk.UpdateHitBox();
-                this.Components.Remove(B);
+                link.Position = link.GameStartPos;
+                link.UpdateHitBox();
+                Components.Remove(B);
 
-                B = new BladeTrap(this, 1, 6, lonk);
-                this.Components.Add(B);
+                B = new BladeTrap(this, 1, 6, link);
+                Components.Add(B);
                 B.SetAttackBoxes(5f, 0, 0, 0);
             }
 
-            for (int i = 0; i < lonk.NumberOfHearts; i++)
-            {
-                lonk.AddHeart(new Heart(this));
-            }
+            for (int i = 0; i < link.NumberOfHearts; i++)
+                link.AddHeart(new Heart(this));
 
-            lonk.BringBackToLife();
+            link.BringBackToLife();
 
             MediaPlayer.Play(DungeonMusic);
         }
@@ -419,8 +452,8 @@ namespace GPOneButton
         public void CueTitleSequence()
         {
             CreditsHaveStarted = true;
-            this.Components.Remove(lonk);
-            this.Components.Remove(room5);
+            Components.Remove(link);
+            Components.Remove(room5);
             MediaPlayer.Play(Credits);
         }
     }
